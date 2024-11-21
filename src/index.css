@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family:Arial, Helvetica, sans-serif;
+    /* background-color: rgb(200, 200, 199); */
+    /* background-color: #073047; */
+    background: linear-gradient(to bottom right, #073047, #0a6b94, #086d84);
+  }
