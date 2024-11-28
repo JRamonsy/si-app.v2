@@ -95,7 +95,8 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
       setShowHideA(false);
       setHideImage(false)
       // setShowHideX(false);
-      console.log(info.image[0]);
+      // console.log(info.image[0]);
+      console.log(info)
     } else {
       console.warn("No hay imágenes disponibles para editar.");
       setImagesEdit(null);
@@ -188,7 +189,7 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
             <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.customer}`}</span></td>
             <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.user}`}</span></td>
             <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.receivedDate}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.remissionNum}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.customer}${info.id}`}</span></td>
             <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.finalDate}`}</span></td>
             <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-2/12' ><span>{`${info.note}`}</span></td>
             <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.quote}`}</span></td>

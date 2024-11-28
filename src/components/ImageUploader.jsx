@@ -43,6 +43,8 @@ const ImageUploader = ({ title }) => {
     const newImgs = images.filter((element) => element.index !== indice);
     setImages(newImgs);
   };
+  
+
 
   return (
     <div className="image-uploader w-full p-1">

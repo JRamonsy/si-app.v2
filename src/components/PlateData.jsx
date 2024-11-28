@@ -25,12 +25,18 @@ const PlateData = ({}) => {
     const fileInputRef = useRef(null); // Referencia para el input de archivo
     
     const Submit = async (data) => {
+
+      if (!data.finalDate) {
+        data.finalDate = null; // Convertir el valor vacío a null antes de enviar
+      }
+
+
       try {
         // Verificar si es un nuevo registro (cuando infosEdit no está definido)
         if (!infosEdit) {
           // Validar si los campos requeridos están vacíos
-          if (!data.receivedDate || !data.finalDate || !data.customer) {
-            window.alert("Por favor, complete todos los campos requeridos: fecha de recibo, fecha final y cliente.");
+          if (!data.receivedDate || !data.customer) {
+            window.alert("Por favor, complete minimo los campos requeridos: fecha de recibo y cliente.");
             return; // Detener la ejecución si los campos están vacíos
           }
     
@@ -142,9 +148,9 @@ const PlateData = ({}) => {
       frame: '',
       serie: '',
       volts: '',
-      catalog: '',
+      // catalog: '',
       equipment: '',
-      power: '',
+      // power: '',
       brand: '',
       remissionNum: '',
       note: '',
@@ -234,7 +240,7 @@ const PlateData = ({}) => {
             <img
               alt="Logo de Suministros Industriales con texto y un símbolo gráfico"
               className="w-52 h-auto"
-              src="public\logo suministros industriales.png"
+              src="\logo suministros industriales.png"
             />
             <h1 className='text-lg font-bold bg-white'>INFORMACION DEL EQUIPO</h1>
           </div>
@@ -275,17 +281,17 @@ const PlateData = ({}) => {
           </div>
 
           <div className="flex justify-between mb-2.5">
-            <label className="flex-1 bg-white" >CATALAGO N°:</label>
-            <input {...register('catalog')} className="flex-2 border-0 border-b border-black bg-white" type="text" />
+            <label className="flex-1 bg-white" >MARCA:</label>
+            <input {...register('brand')} className="flex-2 border-0 border-b border-black bg-white" type="text" />
             <label className="flex-1 bg-white" >EQUIPO:</label>
             <input {...register('equipment')} className="flex-2 border-0 border-b border-black bg-white" type="text" />
           </div>
-          <div className="flex justify-between mb-2.5">
+          {/* <div className="flex justify-between mb-2.5">
             <label className="flex-1 bg-white" >POTENCIA:</label>
             <input {...register('power')} className="flex-2 border-0 border-b border-black bg-white" type="text" />
-            <label className="flex-1 bg-white" >MARCA:</label>
+            <label className="flex-1 bg-white" ></label>
             <input {...register('brand')} className="flex-2 border-0 border-b border-black bg-white" type="text" />
-          </div>
+          </div> */}
           <div className=" m-5 flex justify-center">
             <hr className="w-5/6" />
           </div>
@@ -314,12 +320,12 @@ const PlateData = ({}) => {
           <section>
           <h2 className='text-lg font-bold bg-white text-center'>OTROS DATOS</h2>
             <div className="flex flex-col">
-              <div>
+              {/* <div>
                 <label className="bg-white" >REMISIÓN:</label>
                 <input {...register('remissionNum')} className="border-0 border-b border-black bg-white" type="text" />
-              </div>
+              </div> */}
               <div>
-                <label className="bg-white" >NOTA:</label>
+                <label className="bg-white" >DESCRIPCIÓN RÁPIDA:</label>
                 <input {...register('note')} className="border-0 border-b border-black bg-white" type="text" />
               </div>
               <div>

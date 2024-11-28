@@ -119,7 +119,7 @@ export function RemissionProvider({ children }) {
       email: '',
       referenceAgent: '',
       phone: '',
-      folio: '',
+      remissionDate: '',
       receivedDate: '',
       whoReceive: '',
     });
@@ -130,6 +130,14 @@ export function RemissionProvider({ children }) {
    }, [remissionEdit])
 
   const Submit = async ( data) => {
+
+    if (!data.remissionDate) {
+      data.remissionDate = null;
+    }
+    
+    if (!data.receivedDate) {
+      data.receivedDate = null;
+    }
 
     if (remissionEdit && remissionEdit.id) {  
       await updateRemission('/remission_datas/', remissionEdit.id, data);

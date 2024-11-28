@@ -57,7 +57,7 @@ const Remission = () => {
         </div>
         <div className=" flex p-2.5">
           <div className='flex  items-center'>
-            <img alt="Logo de Suministros Industriales"  src="public\logo suministros industriales.png" width="300" />
+            <img alt="Logo de Suministros Industriales"  src="\logo suministros industriales.png" width="300" />
 
           </div>
           <div className='w-3/4 '>
@@ -65,11 +65,11 @@ const Remission = () => {
               <label>EMPRESA: </label>
               <label>{selectedInfo?.customer || 'datos no disponible'}</label>
               <div className='flex'>
-                <div className=' text-center w-2/4 border-t border-r border-black '>
+                <div className=' text-center w-2/4 border-t border-r border-black flex flex-col'>
                 <label>SERVICIO SOLICITADO POR: </label>
                 <label>{selectedInfo?.user || 'datos no disponible'}</label>
                 </div>
-                <div className='text-center w-2/4 border-t border-black '>
+                <div className='text-center w-2/4 border-t border-black flex flex-col'>
                 <label>CORREO: </label>
                 <input {...register('email')} className='bg-gray-200 ' type="email" placeholder="correo de quien solicita" />
                 </div>              
@@ -82,19 +82,21 @@ const Remission = () => {
                   <label>AGENTE DE REFERENCIA: </label>
                   <input {...register('referenceAgent')} className='bg-gray-200 ' type="text" placeholder="nombre del agente"/>
                 </div>
-                <div className=' flex flex-col border-r border-black'>
+                <div className=' flex flex-col border-r border-black items-center'>
                   <label>FECHA: </label>
-                  <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label>
+                  <input {...register('remissionDate')} className='bg-gray-200 w-2/4 text-center' type="date" placeholder="fecha"/>
                 </div>
               </div>
               <div className=' text-center w-2/4  '>
-                <div className='text-center '>
+                <div className='text-center flex flex-col items-center '>
                   <label>TELEFONO: </label>
                   <input {...register('phone')} className='bg-gray-200 ' type="text" placeholder="telefono del agente"/>
                 </div>
                 <div className='border-t border-black'>
                   <label>FOLIO: </label>
-                  <input {...register('folio')} className='bg-gray-200 ' type="text" placeholder="folio de la remisión"/>
+                  <div className=' border-black'>
+                    <label>{selectedInfo?.customer || 'datos no disponible'}{selectedInfo?.id}</label>
+                  </div>
                 </div>
               </div>              
             </div>  

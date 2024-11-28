@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import ImageUploader from "./ImageUploader";
 import { useContext } from "react";
 import { HandleFuntionsContext } from "../context/HandleFunctionsContext";
@@ -11,7 +11,11 @@ const ServiceReport = () => {
 
   const { selectedInfo} = useContext(HandleFuntionsContext);
 
-  const { serviceReport, handleServiceReportClose, handleSubmit, register, Submit, handleDeleteServiceReport } = useContext(ServiceReportContext)
+  const { serviceReport, handleServiceReportClose, handleSubmit, register, Submit, handleDeleteServiceReport,              showHideA, showHideX, hideImage, btnDeleteImage, setImagesEdit, clearImage, handleX, showImg, handleImage, handleDeleteImage, fileInputRef, selectedImages, handleRemoveImage, handleDeleteAllImages } = useContext(ServiceReportContext)
+
+  
+
+  
 
   
 
@@ -126,7 +130,66 @@ const ServiceReport = () => {
         </div>
 
         <div className='recibo w-full p-1'>
-          <ImageUploader/>
+        {/* <section>
+          <div className={`${hideImage && 'hidden'} relative w-ful flex justify-center` }>
+            <button onClick={handleX} className={` ${showHideX && 'scale-0'} absolute text-2xl hover:text-white`} >Cambiar Imagen</button>
+
+            <img className="  border rounded-2xl w-[250px] h-[250px] items-center justify-center object-cover" src={showImg()} alt="" />
+          </div>
+            <input 
+            className={` ${showHideA ? '' : 'hidden'} `} 
+            onChange={handleImage} 
+            type="file" 
+            ref={fileInputRef} // Asignar la referencia al input
+            />
+            <button onClick={handleDeleteImage} className={` ${btnDeleteImage && 'hidden'} border border-black m-2 p-1 hover:bg-white`} >eliminar imagen</button>
+          </section> */}
+
+          <section>
+            {/* Sección para mostrar las imágenes seleccionadas */}
+            <div className={`${hideImage && 'hidden'} relative w-full flex justify-center flex-wrap gap-4`}>
+              {selectedImages.length > 0 ? (
+                selectedImages.map((image, index) => (
+                  <div key={index} className="relative">
+                    <button 
+                      onClick={() => handleRemoveImage(index)} 
+                      className={`absolute text-2xl hover:text-white`} 
+                    >
+                      ✖
+                    </button>
+                    <img 
+                      className="border rounded-2xl w-[250px] h-[250px] object-cover" 
+                      src={URL.createObjectURL(image)} 
+                      alt={`Selected ${index}`} 
+                    />
+                  </div>
+                ))
+              ) : (
+                <p>No hay imágenes seleccionadas</p>
+              )}
+            </div>
+
+            {/* Input para seleccionar múltiples imágenes */}
+            <input
+              className={`${showHideA ? '' : 'hidden'}`} 
+              onChange={handleImage} 
+              type="file" 
+              multiple // Permitir múltiples archivos
+              ref={fileInputRef} 
+            />
+
+            {/* Botón para eliminar todas las imágenes */}
+            <button 
+              onClick={handleDeleteAllImages} 
+              className={`${btnDeleteImage && 'hidden'} border border-black m-2 p-1 hover:bg-white`}
+            >
+              Eliminar todas las imágenes
+            </button>
+          </section>
+
+
+
+   
         </div>
 
         <div className="bg-gray-400 p-1 font-bold text-center">
@@ -141,7 +204,7 @@ const ServiceReport = () => {
 
 
         <div className="diagnostico">
-        <ImageUploader/>
+        {/* <ImageUploader/> */}
 
         </div>
 
@@ -254,7 +317,7 @@ const ServiceReport = () => {
         </div>
 
         <div className="evidencia">
-          <ImageUploader/>
+          {/* <ImageUploader/> */}
 
         </div>
         <div className="bg-gray-400 p-1  font-bold text-center" >
@@ -267,11 +330,12 @@ const ServiceReport = () => {
           VIII. EVIDENCIA FOTOGRÁFICA DE SERVICIO REALIZADO
         </div>
         <div className="evidencia">
-          <ImageUploader/>
+          {/* <ImageUploader/> */}
 
         </div>
 
         <button className="w-full  px-4 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600">GUARDAR</button>
+
       </form>
       <section className='m-5'>
         <div onClick={handleServiceReportClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">

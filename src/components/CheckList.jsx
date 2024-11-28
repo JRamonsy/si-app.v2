@@ -47,7 +47,7 @@ const CheckList = ({}) => {
             <img
               alt="Logo de Suministros Industriales con texto y un símbolo gráfico"
               className="w-52 h-auto"
-              src="public\logo suministros industriales.png"
+              src="\logo suministros industriales.png"
               />
             <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI{selectedInfo?.id || 'datos no disponible'}</h1>
           </div>
@@ -292,12 +292,12 @@ const CheckList = ({}) => {
             </tbody>
           </table>
           <div className="mt-5 bg-white">
-            <p className='bg-white'>Diagnostico</p>
-            <textarea {...register('comments')} className="bg-white border border-black" rows="4" style={{ width: '100%', resize: 'none' }}></textarea>
+            <p className='bg-white'>Diagnostico general:</p>
+            <textarea {...register('comments')} className="bg-white border border-black px-2" rows="4" style={{ width: '100%', resize: 'none' }}></textarea>
           </div>
           <div className="mt-5 bg-white">
-            <p className='bg-white'>Materiales requeridos</p>
-            <textarea {...register('requiredMaterials')} className="bg-white border border-black" rows="4" style={{ width: '100%', resize: 'none' }}></textarea>
+            <p className='bg-white'>Materiales requeridos:</p>
+            <textarea {...register('requiredMaterials')} className="bg-white border border-black px-2" rows="4" style={{ width: '100%', resize: 'none' }}></textarea>
           </div>
           <button className="w-full m-5 px-4 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600">GUARDAR</button>
         </form>

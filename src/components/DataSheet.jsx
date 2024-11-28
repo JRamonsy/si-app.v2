@@ -5,6 +5,51 @@ const DataSheet = () => {
 
   const {openDataSheet, handleDataSheetClose, selectedInfo} = useContext(HandleFuntionsContext);
 
+  // Función para dividir el texto de requerimiento de material en líneas
+  const renderGeneralDiagnosis = (tasks) => {
+    if (!tasks) return <p>No hay datos disponibles</p>;
+    // Dividir el texto en líneas
+    const tasksList = tasks.split('\n');
+    // Renderizar la lista
+    return (
+      <ul className="list-inside">
+        {tasksList.map((item, index) => (
+          <li key={index}>{item.trim()}</li>
+        ))}
+      </ul>
+    );
+  };
+
+  // Función para dividir el texto de diagnostico general en líneas
+  const renderMaterialsAsList = (materials) => {
+    if (!materials) return <p>No hay datos disponibles</p>;
+    // Dividir el texto en líneas
+    const materialsList = materials.split('\n');
+    // Renderizar la lista
+    return (
+      <ul className="list-inside">
+        {materialsList.map((item, index) => (
+          <li key={index}>{item.trim()}</li>
+        ))}
+      </ul>
+    );
+  };
+
+  // Función para dividir el texto de servicio realizado en líneas
+  const renderServiceList = (services) => {
+    if (!services) return <p>No hay datos disponibles</p>;
+    // Dividir el texto en líneas
+    const servicesList = services.split('\n');
+    // Renderizar la lista
+    return (
+      <ul className="list-inside">
+        {servicesList.map((item, index) => (
+          <li key={index}>{item.trim()}</li>
+        ))}
+      </ul>
+    );
+  };
+
   return (
     <div className={` fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center 
       ${openDataSheet && 'scale-0'} transform transition-transform duration-200 ease`}>
@@ -19,7 +64,7 @@ const DataSheet = () => {
                 <img
                   alt="Logo de Suministros Industriales con texto y un símbolo gráfico"
                   className="w-52 h-auto"
-                  src="public\logo suministros industriales.png"
+                  src="\logo suministros industriales.png"
                 />
                 <h1 className='text-lg font-bold bg-white'>INFORMACION DEL EQUIPO</h1>
               </div>
@@ -28,7 +73,7 @@ const DataSheet = () => {
                 <label className="basis-2/6 bg-white">FECHA DE RECIBO:</label>
                 <label className="basis-1/6 border-b border-black" >{selectedInfo?.receivedDate || 'datos no disponible'}</label>
                 <label className="basis-2/6 bg-white">FECHA DE TERMINO:</label>
-                <label className="basis-1/6 border-b border-black" >{selectedInfo?.finalDate || 'datos no disponible'}</label>
+                <label className="basis-1/6 border-b border-black" >{selectedInfo?.finalDate || 'Sin especificar'}</label>
               </div>
 
               <div className="flex justify-between mb-2.5">
@@ -60,17 +105,17 @@ const DataSheet = () => {
               </div>
 
               <div className="flex justify-between mb-2.5">
-                <label className="basis-1/6 bg-white" >CATALAG N°:</label>
-                <label className="basis-2/6 border-b border-black" >{selectedInfo?.catalog || 'datos no disponible'}</label>
+                <label className="basis-1/6 bg-white" >MARCA:</label>
+                <label className="basis-2/6 border-b border-black" >{selectedInfo?.brand || 'datos no disponible'}</label>
                 <label className="basis-1/6 bg-white" >EQUIPO:</label>
                 <label className="basis-2/6 border-b border-black" >{selectedInfo?.equipment || 'datos no disponible'}</label>
               </div>
-              <div className="flex justify-between mb-2.5">
+              {/* <div className="flex justify-between mb-2.5">
                 <label className="basis-1/6 bg-white" >POTENCIA:</label>
                 <label className="basis-2/6 border-b border-black" >{selectedInfo?.power || 'datos no disponible'}</label>
                 <label className="basis-1/6 bg-white" >MARCA:</label>
                 <label className="basis-2/6 border-b border-black" >{selectedInfo?.brand || 'datos no disponible'}</label>
-              </div>
+              </div> */}
               <div className=" m-5 flex justify-center">
                 <hr className="w-5/6" />
               </div>
@@ -93,12 +138,12 @@ const DataSheet = () => {
               <section>
                 <h2 className='text-lg font-bold bg-white text-center'>OTROS DATOS</h2>
                 <div className="flex flex-col">
-                  <div>
+                  {/* <div>
                     <label className="bg-white" >REMISIÓN:</label>
                     <label className="basis-2/6 border-b border-black" >{selectedInfo?.remissionNum || 'datos no disponible'}</label>
-                  </div>
+                  </div> */}
                   <div>
-                    <label className="bg-white" >NOTA:</label>
+                    <label className="bg-white" >DESCRIPCIÓN RAPIDA:</label>
                     <label className="basis-2/6 border-b border-black" >{selectedInfo?.note || 'datos no disponible'}</label>
                   </div>
                   <div>
@@ -121,7 +166,7 @@ const DataSheet = () => {
                   <img
                     alt="Logo de Suministros Industriales con texto y un símbolo gráfico"
                     className="w-52 h-auto"
-                    src="public\logo suministros industriales.png"
+                    src="\logo suministros industriales.png"
                   />
                   <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI</h1>
                 </div>
@@ -129,7 +174,7 @@ const DataSheet = () => {
                   <label className="basis-4/12  bg-white">FECHA DE RECIBO:</label>
                   <label className=" border-b border-black" >{selectedInfo?.receivedDate || 'datos no disponible'}</label>
                   <label className="basis-4/12 bg-white">FECHA DE TERMINO:</label>
-                  <label className="border-b border-black" >{selectedInfo?.finalDate || 'datos no disponible'}</label>
+                  <label className="border-b border-black" >{selectedInfo?.finalDate || 'Sin especificar'}</label>
                 </div>
                 <div className="flex justify-between mb-2.5">
                   <label className="basis-1/4 bg-white" >CLIENTE:</label>
@@ -249,12 +294,18 @@ const DataSheet = () => {
                   </tbody>
                 </table>
                 <div className="mt-5 bg-white">
-                  <p className='bg-white'>Diagnostico</p>
-                  <label className="underline" >{selectedInfo?.checkList?.comments || 'datos no disponible'}</label>
+                  <p className='bg-white'>Diagnostico general:</p>
+                  {/* <label className="underline" >{selectedInfo?.checkList?.comments || 'datos no disponible'}</label> */}
+                  <div className="border p-3">
+                    {renderGeneralDiagnosis(selectedInfo?.checkList?.comments)}
+                  </div>
                 </div>
                 <div className="mt-5 bg-white">
-                  <p className='bg-white'>Materiales requeridos</p>
-                  <label className="underline" >{selectedInfo?.checkList?.requiredMaterials || 'datos no disponible'}</label>
+                  <p className='bg-white'>Materiales requeridos:</p>
+                  {/* <label className="underline" >{selectedInfo?.checkList?.requiredMaterials || 'datos no disponible'}</label> */}
+                  <div className="border p-3">
+                    {renderMaterialsAsList(selectedInfo?.checkList?.requiredMaterials)}
+                  </div>
                 </div>
               </form>
             </section>
@@ -327,7 +378,7 @@ const DataSheet = () => {
                         CATALAGO N°:
                       </th>
                       <td className='border border-solid border-black p-1 text-sm text-center'>
-                        <label>{selectedInfo?.catalog || 'datos no disponible'}</label>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
                       </td>
                       <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
                         EQUIPO:
@@ -341,7 +392,7 @@ const DataSheet = () => {
                         POTENCIA:
                       </th>
                       <td className='border border-solid border-black p-1 text-sm text-center'>
-                        <label>{selectedInfo?.power || 'datos no disponible'}</label>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
                       </td>
                       <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
                         MARCA:
@@ -361,7 +412,20 @@ const DataSheet = () => {
                 <div className="bg-gray-400 p-1 font-bold text-center">
                   II. FOTOGRAFIAS DE RECIBIDO
                 </div>
-                <div className='recibo w-full p-1'>
+                <div className='recibo w-full p-1 w-full flex justify-center flex-wrap gap-4'>
+                {selectedInfo?.serviceReport?.images?.length > 0 ? (
+                  selectedInfo.serviceReport.images.map((image, index) => (
+                    <div key={index} className="relative ">
+                      <img 
+                        className="border rounded-2xl w-[150px] h-[150px] object-cover" 
+                        src={image.imageUrl} 
+                        alt={`Selected ${index}`} 
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <p>No hay imágenes seleccionadas</p>
+                )}
                 </div>
                 <div className="bg-gray-400 p-1 font-bold text-center">
                   III. OBSERVACIONES
@@ -444,7 +508,7 @@ const DataSheet = () => {
                         CATALAGO N°:
                       </th>
                       <td className='border border-solid border-black p-1 text-sm text-center'>
-                        <label>{selectedInfo?.catalog || 'datos no disponible'}</label>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
                       </td>
                       <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
                         EQUIPO:
@@ -458,7 +522,7 @@ const DataSheet = () => {
                         POTENCIA:
                       </th>
                       <td className='border border-solid border-black p-1 text-sm text-center'>
-                        <label>{selectedInfo?.power || 'datos no disponible'}</label>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
                       </td>
                       <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
                         MARCA:
@@ -478,7 +542,10 @@ const DataSheet = () => {
                   VII. SERVICIO REALIZADO
                 </div>
                 <div className='m-0 p-3'>
-                <label>{selectedInfo?.serviceReport?.serviceCompleted || 'datos no disponible'}</label>
+                {/* <label>{selectedInfo?.serviceReport?.serviceCompleted || 'datos no disponible'}</label> */}
+                <div className="border p-3">
+                    {renderServiceList(selectedInfo?.serviceReport?.serviceCompleted)}
+                  </div>
                 </div>
                 <div className="bg-gray-400 p-1 mt-5 font-bold text-center">
                   VIII. EVIDENCIA FOTOGRÁFICA DE SERVICIO REALIZADO
@@ -501,7 +568,7 @@ const DataSheet = () => {
             </div>
             <div className=" flex p-2.5">
               <div className='flex  items-center'>
-                <img alt="Logo de Suministros Industriales" src="public\logo suministros industriales.png" width="300" />
+                <img alt="Logo de Suministros Industriales" src="\logo suministros industriales.png" width="300" />
 
               </div>
               <div className='w-3/4 '>
@@ -509,11 +576,11 @@ const DataSheet = () => {
                   <label>EMPRESA: </label>
                   <label>{selectedInfo?.customer || 'datos no disponible'}</label>
                   <div className='flex'>
-                    <div className=' text-center w-2/4 border-t border-r border-black '>
+                    <div className=' text-center w-2/4 border-t border-r border-black flex flex-col '>
                       <label>SERVICIO SOLICITADO POR: </label>
                       <label>{selectedInfo?.user || 'datos no disponible'}</label>
                     </div>
-                    <div className='text-center w-2/4 border-t border-black '>
+                    <div className='text-center w-2/4 border-t border-black flex flex-col'>
                       <label>CORREO: </label>
                       <label>{selectedInfo?.Remission?.email || 'datos no disponible'}</label>
                     </div>
@@ -522,23 +589,23 @@ const DataSheet = () => {
 
                 <div className=' flex bg-gray-200 m-2 border border-black'>
                   <div className=' text-center w-2/4  '>
-                    <div className='border-b border-r border-black'>
+                    <div className='border-b border-r border-black flex flex-col'>
                       <label>AGENTE DE REFERENCIA: </label>
                       <label>{selectedInfo?.Remission?.referenceAgent || 'datos no disponible'}</label>
                     </div>
                     <div className=' flex flex-col border-r border-black'>
                       <label>FECHA: </label>
-                      <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label>
+                      <label>{selectedInfo?.Remission?.remissionDate || 'datos no disponible'}</label>
                     </div>
                   </div>
                   <div className=' text-center w-2/4  '>
-                    <div className='text-center '>
+                    <div className='text-center flex flex-col'>
                       <label>TELEFONO: </label>
                       <label>{selectedInfo?.Remission?.phone || 'datos no disponible'}</label>
                     </div>
-                    <div className='border-t border-black'>
+                    <div className='border-t border-black flex flex-col'>
                       <label>FOLIO: </label>
-                      <label>{selectedInfo?.Remission?.folio || 'datos no disponible'}</label>
+                      <label>{selectedInfo?.customer || 'datos no disponible'}{selectedInfo?.id}</label>
                     </div>
                   </div>
                 </div>
@@ -566,7 +633,38 @@ const DataSheet = () => {
               <ul className='w*full flex flex-row ' >
                 <li className=' text-black text-xs border border-black text-center  px-1 py-4 basis-1/12' >CANTIDAD</li>
                 <li className=' text-black text-xs border-y border-black text-center  px-1 py-4 basis-1/12' >UNIDAD</li>
-                <li className=' text-black text-xs border border-black text-center  px-1 py-4 basis-7/12' ><label>{selectedInfo?.serviceReport?.serviceCompleted || 'datos no disponible'}</label></li>
+                <li className=' text-black text-xs border border-black text-center  px-1 py-4 basis-7/12' ><label>
+                <div className="flex font-bold justify-center">
+                  {selectedInfo?.equipment && (
+                    <div className="mr-2">
+                      Equipo: {selectedInfo?.equipment},
+                    </div>  
+                  )}
+                  {selectedInfo?.spec && (
+                    <div className="mr-2">
+                      Spec:{selectedInfo?.spec},
+                    </div>
+                  )}
+                  {selectedInfo?.frame && (
+                    <div className="mr-2">
+                      Frame: {selectedInfo?.frame},
+                    </div>
+                  )}
+                  {selectedInfo?.hp && (
+                    <div className="mr-2">
+                      Hp: {selectedInfo?.hp},
+                    </div>
+                  )}
+                  {selectedInfo?.volts && (
+                    <div>
+                      Volts: {selectedInfo?.volts}
+                    </div>
+                  )}
+                </div>
+                    
+                <div className="border p-3">
+                  {renderServiceList(selectedInfo?.serviceReport?.serviceCompleted)}
+                </div></label></li>
                 <li className=' text-white text-xs border-y border-black text-center  px-1 py-2 basis-1/12' >FECHA DE ENTREGA</li>
                 <li className=' text-black text-xs border border-black text-center  px-1 py-2 basis-1/12' >PRECIO UNITARIO</li>
                 <li className=' text-black text-xs border-y border-r border-black text-center  px-1 py-2 basis-1/12 ' >PRECIO TOTAL</li>
@@ -622,6 +720,21 @@ const DataSheet = () => {
               </div>
             </div>
           </form>
+        </section>
+
+        <hr className="h-1 bg-gradient-to-r from-blue-500 via-green-500 to-purple-500 my-6 border-0 rounded-full" />
+
+        <section className="flex flex-col justify-center items-center">
+          <div className="w-1/2 border rounded-[15px] px-5">
+            <div className="m-5">
+              <h3 className="text-lg font-bold">Materiales Requeridos para registro: {selectedInfo?.id}</h3>
+            </div>
+            <div className="flex flex-col">
+              <label className="my-2"><b>Remisión:</b> {selectedInfo?.customer}{selectedInfo?.id || 'datos no disponible'}</label>
+              <label className="my-2"><b>Descripción Rapida:</b> {selectedInfo?.note || 'datos no disponible'}</label>
+              <label className="my-2"><b>Lista de Materiales:</b>{renderMaterialsAsList(selectedInfo?.checkList?.requiredMaterials)}</label>
+            </div>
+          </div>
         </section>
 
 

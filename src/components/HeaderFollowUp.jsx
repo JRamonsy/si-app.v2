@@ -18,12 +18,18 @@ const HeaderFollowUp = () => {
 
   return (
     <div>
-        <h2 className='text-3xl text-center text-white font-bold font-sans'>SEGUIMIENTO DE ORDENES</h2>  
-        <section className='flex justify-center'>
-          <button onClick={handleNew} className='bg-sky-600 text-white py-1 px-2 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500' title="Nuevo registro" ><MdOutlinePostAdd /></button>
-          <button onClick={handleExitLogin} className='bg-red-600 text-white py-1 px-2 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-red-500' title="Salir" ><IoMdExit /></button>
-        </section>
-
+      <header className="w-full m-2 flex">
+        <div className="w-2/12 flex justify-center items-center">
+          <img className="w-[200px] rounded border-black border-[4px]" src="\logo suministros industriales.png" alt="" />
+        </div>
+        <div className="w-8/12 flex flex-col justify-center items-center">
+          <h2 className='  text-3xl text-white font-bold font-sans'>SEGUIMIENTO DE ORDENES</h2>  
+          <button onClick={handleNew} className='bg-sky-600 text-white py-1 px-2 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500 h-10 ' title="Nuevo registro" ><MdOutlinePostAdd /></button>
+        </div>
+        <div className="w-2/12  flex justify-center items-center">
+          <button onClick={handleExitLogin} className='h-8 bg-red-600 text-white py-1 px-2 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-red-500' title="Salir" ><IoMdExit /></button>
+        </div>
+      </header>
         <table className='w-full border-collapse'>
           <thead>
             <tr className='flex'>
