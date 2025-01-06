@@ -1,6 +1,7 @@
 import CheckList from './CheckList'
 import DataSheet from './DataSheet'
 import Remission from './Remission'
+import MaterialList from "./MaterialList";
 import ServiceReport from './ServiceReport'
 import {useContext, useState, useEffect } from "react";
 import { PlateDataContext } from "../context/PlateDataContext";
@@ -8,6 +9,7 @@ import { HandleFuntionsContext } from "../context/HandleFunctionsContext";
 import { CheckListContext } from "../context/CheckListContext";
 import { ServiceReportContext } from "../context/ServiceReportContext";
 import { RemissionContext } from '../context/RemissionContext';
+import { MaterialListContext } from "../context/MaterialListContext";
 import { HiOutlineArrowsExpand } from "react-icons/hi";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -15,6 +17,7 @@ import { MdOutlinePostAdd } from "react-icons/md";
 import Swal from 'sweetalert2';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+
 
 
 
@@ -31,6 +34,8 @@ const FollowUp2 = ({info, trueCount}) => {
   const { handleServiceReport, newServiceReport } = useContext(ServiceReportContext)
 
   const { handleRemission, newRemission } = useContext(RemissionContext);
+
+  const { handleOpenMateriaList, } = useContext(MaterialListContext);
 
 
 const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
@@ -73,18 +78,6 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
     }
   });
 };
-
-
-  // const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
-  //   if (window.confirm('¿Está seguro de eliminar este registro?')) {
-  //     console.log('Deleting plate info with ID:', info.id);
-  //     deleteInfos('/plate_datas/', info.id);
-  //     if (info.image && info.image.length > 0) {
-  //       console.log('Deleting image with ID:', info.image[0].id);
-  //       deleteImages('/image_datas/', info.image[0].id);
-  //     }
-  //   }
-  // };
 
   const handleEdit = () => {  // CARGA LOS DATOS DE UN REGISTRO A EL FORMULARIO PARA EDITAR
     setNewService(false)
@@ -139,19 +132,21 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
     }
   }, [info.Remission]);
 
-
-
-
-  
-
-
+  // Circulo de progreso
   const totalInputs = 11; 
   const progressValue = (trueCount / totalInputs) * 100;
  
-  function CircularProgressWithLabel({ value }) {
+  function CircularProgressWithLabel({ value, color, size, thickness, customColor, textStyle }) {
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-        <CircularProgress variant="determinate" value={value} />
+        <CircularProgress 
+          variant="determinate" 
+          value={value}
+          color={color}
+          size={size}
+          thickness={thickness}
+          sx={{ color: customColor ? customColor : '' }}
+          />
         <Box
           sx={{
             top: 0,
@@ -162,6 +157,7 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            ...textStyle
           }}
         >
           <span>{`${Math.round(value)}%`}</span> 
@@ -175,45 +171,52 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
       <table className='w-full border-collapse' >
         <tbody>
           <tr className='flex'  >
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 ' ><span>
-              {`${info.id}`}
-              <section>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center'>
+              <span className='font-bold text-xl ' >
+                {`${info.id}`}
+              </span></td>
+            <td className='font-sans flex justify-center items-center border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
+            <CircularProgressWithLabel value={progressValue} customColor="#9ad247" size={70} thickness={8}
+              textStyle={{ fontSize: '.9rem', color: '#fff', fontWeight: 'bold', fontFamily: 'Arial' }} />         
+            </td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.customer}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.user}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.receivedDate}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.customer}${info.id}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.finalDate || ""}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-2/12 flex justify-center items-center' ><span>{`${info.note}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.quote}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
+            <section className='flex flex-col items-center'>
+    
+              <section className='w-full flex justify-between items-center'>
+                <h3 className='text-left' >CheckList:</h3>
+                <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleCheckListOpen(info)} title='Editar Check List' ><FaEdit /></button>
+              </section>
+
+              <section className='w-full flex justify-between items-center'>
+                <h3 className='text-left' >Reporte de servicio:</h3>
+                <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleServiceReport(info)} title='Editar Reporte de Servicio' ><FaEdit /></button>
+              </section>
+
+              <section className='w-full flex justify-between items-center'>
+                <h3 className='text-left' >Remisión:</h3>
+                <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleRemission(info)} title='Editar Remisión' ><FaEdit /></button>
+              </section>
+
+              <section className='w-full flex justify-between items-center'>
+                <h3 className='text-left'>Lista de materiales:</h3>
+                <button  className='bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500' onClick={() => handleOpenMateriaList(info) } title='Eliminar registro' ><HiOutlineArrowsExpand/></button>
+              </section>
+            </section>
+            </td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
+             <section className='flex flex-col justify-center items-center' >
                 <button className='bg-yellow-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-yellow-500' onClick={() => handleDataSheet(info)}
                 title="Abrir Reporte General"><HiOutlineArrowsExpand/></button>
                 <button  className='bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500' onClick={handleEdit} title='Editar información del equipo' ><FaEdit /></button>
                 <button  className='bg-red-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-red-500' onClick={handleDelete} title='Eliminar registro' ><MdDeleteForever /></button>
-              </section></span></td>
-            <td className='font-sans flex justify-center items-center border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
-            <CircularProgressWithLabel value={progressValue}/>         
-            </td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.customer}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.user}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.receivedDate}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.customer}${info.id}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.finalDate}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-2/12' ><span>{`${info.note}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' ><span>{`${info.quote}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-2/12' >
-            <section className='flex flex-col items-center'>
-    
-              <section className='w-full flex justify-start items-center'>
-                <h3 >CheckList:</h3>
-                  <button className={`${btnNewCheck && 'hidden'} bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500 `} onClick={() =>  newCheckList(info)} title='Nuevo Check List'><MdOutlinePostAdd /></button>
-                  <button className={`${btnEditCheck && 'hidden'} bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleCheckListOpen(info)} title='Editar Check List' ><FaEdit /></button>
               </section>
-
-              <section className='w-full flex justify-start items-center'>
-                <h3>Reporte de servicio:</h3>
-                  <button className={`${btnNewReport && 'hidden'} bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500 `} onClick={() =>  newServiceReport(info)} title='Nuevo Reporte de Servicio' ><MdOutlinePostAdd /></button>
-                  <button className={`${btnEditReport && 'hidden'} bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleServiceReport(info)} title='Editar Reporte de Servicio' ><FaEdit /></button>
-              </section>
-
-              <section className='w-full flex justify-start items-center'>
-                <h3>Remisión:</h3>
-                <button className={`${btnNewRemission && 'hidden'} bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500 `} onClick={() =>  newRemission(info)} title='Nueva Remisión' ><MdOutlinePostAdd /></button>
-                <button className={` ${btnEditRemission && 'hidden'} bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleRemission(info)} title='Editar Remisión' ><FaEdit /></button>
-              </section>
-            </section>
             </td>
           </tr>
         </tbody>
@@ -222,6 +225,8 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
       <CheckList />
       <Remission />
       <ServiceReport />
+      <MaterialList info={info}/>
+
     </section>
   )
 }

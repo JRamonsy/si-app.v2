@@ -8,7 +8,7 @@ export const PlateDataContext = createContext(false);
 // el que provee acceso a context
 export function PlateDataProvider({children}){
 
-  const BASE_URL = 'https://si-api-test.onrender.com'
+  const BASE_URL = 'https://si-api-test-1.onrender.com'
   
   const [infos, getInfos, createInfos, deleteInfos, updateInfos] = useCrud(BASE_URL)
   const [images, getImages, createImages, deleteImages, updateImages] = useCrud(BASE_URL)
@@ -36,7 +36,7 @@ export function PlateDataProvider({children}){
   //   getService('/report_datas/')
   // }, [])
 
-  console.log(infos)
+  // console.log(infos)
   // console.log(images)
   // console.log(checks)
   // console.log(service)

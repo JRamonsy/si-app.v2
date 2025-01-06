@@ -1,17 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { PlateDataContext } from "../context/PlateDataContext";
+import { useContext } from "react";
 import { HandleFuntionsContext } from "../context/HandleFunctionsContext";
 import { CheckListContext } from "../context/CheckListContext";
-import { MdDeleteForever } from "react-icons/md";
-
 
 const CheckList = ({}) => {
 
-  const {} = useContext(PlateDataContext);
-  const { selectedInfo, newCheckList } = useContext(HandleFuntionsContext);
-  const {checkList, handleCloseCheckList, btnDeleteCheck, handleSubmit, Submit, register,  handleDeleteCheckList, checksEdit, formData, setFormData, handleCheckboxChange}= useContext(CheckListContext)
-
-  const [btnEditCheck, setBtnEditCheck] = useState(true)
+  const { selectedInfo } = useContext(HandleFuntionsContext);
+  const { checkList, handleCloseCheckList, handleSubmit, Submit, register, }= useContext(CheckListContext)
 
   const handleChangeExitStep = (e) => {};
   const handleChangeVisualInspection = (e) => {};
@@ -25,22 +19,10 @@ const CheckList = ({}) => {
   const handleChangeRemission = (e) => {};
   const handleChangeGuide = (e) => {};
 
-  //  useEffect(() => {
-  //   if (!selectedInfo?.checkList) {
-  //     console.log('no existe un checklist aun')
-  //   } else {
-  //     setBtnDeleteCheck(false)
-  //     setBtnEditCheck(false)
-  //   }
-  //  }, [newCheckList]);
-
   return (
     <section className={`fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center 
     ${checkList && 'scale-0'} transform transition-transform duration-200 ease`}>
       <section className="m-5" >
-        {/* <div className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-          <h2 >✔</h2>
-        </div> */}
       </section>
       <form onSubmit={handleSubmit(Submit)} className='w-full max-w-2xl h-[90vh] overflow-y-auto p-5 rounded-lg bg-white '>
           <div className="flex justify-between items-center mb-5 bg-white ">
@@ -51,7 +33,6 @@ const CheckList = ({}) => {
               />
             <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI{selectedInfo?.id || 'datos no disponible'}</h1>
           </div>
-
           <div className="flex justify-between mb-2.5">
             <label className="basis-4/12  bg-white">FECHA DE RECIBO:</label>
             <label className=" border-b border-black" >{selectedInfo?.receivedDate || 'datos no disponible'}</label>
@@ -304,20 +285,9 @@ const CheckList = ({}) => {
         <section className="m-5" >
         <div onClick={handleCloseCheckList} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
           <h2 >X</h2>
-        </div>
-        {/* <div onClick={handleEditCheck}  className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-          <h2 >editar</h2>
-        </div> */}
-        {/* <div onClick={handleEditCheck}  className={`${btnEditCheck && 'hidden'} cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30`}>
-          <h2 >editar</h2>
-        </div> */}
-        <div onClick={handleDeleteCheckList}  className={`${btnDeleteCheck } cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30`}>
-          <h2 ><MdDeleteForever /></h2>
-        </div>
-        
+        </div>        
       </section>
     </section>
-
   )
 }
 

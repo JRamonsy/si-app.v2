@@ -30,9 +30,9 @@ const useCrud = (BASE_URL) => {
   const deleteApi = async (path, id) => {
     const url = `${BASE_URL}${path}${id}/`;
     try {
-      console.log('Deleting resource at:', url);
+      // console.log('Deleting resource at:', url);
       const res = await axios.delete(url);
-      console.log(res.data);
+      // console.log(res.data);
       setResponse((prevResponse) => prevResponse.filter(info => info.id !== id));
     } catch (err) {
       console.error(err);

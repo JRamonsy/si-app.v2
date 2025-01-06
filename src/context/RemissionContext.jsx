@@ -122,6 +122,15 @@ export function RemissionProvider({ children }) {
       remissionDate: '',
       receivedDate: '',
       whoReceive: '',
+      quantity: '',
+      unit: '',
+      deliveryDate: '',
+      unit: '',
+      price: '',
+      totalPrice: '',
+      subtotal: '',
+      vat: '',
+      total: '',
     });
   }
 
@@ -198,7 +207,7 @@ export function RemissionProvider({ children }) {
   const valuesRemissionFunrtions = {
 
     handleRemission, openRemission, handleRemissionClose, newRemission,
-    handleDeleteRemission,
+    handleDeleteRemission, createRemission,
 
 
 
