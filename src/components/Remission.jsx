@@ -101,7 +101,7 @@ const Remission = () => {
           <ul className='w*full flex flex-row ' >
             <li className='bg-[#1e4e8c] text-white text-xs border border-black text-center  px-1 py-4 basis-1/12' >CANTIDAD</li>
             <li className='bg-[#1e4e8c] text-white text-xs border-y border-black text-center  px-1 py-4 basis-1/12' >UNIDAD</li>
-            <li className='bg-[#1e4e8c] text-white text-xs border border-black text-center  px-1 py-4 basis-7/12' >DECRIPCION</li>
+            <li className='bg-[#1e4e8c] text-white text-xs border border-black text-center  px-1 py-4 basis-7/12' >DESCRIPCIÓN</li>
             <li className='bg-[#1e4e8c] text-white text-xs border-y border-black text-center  px-1 py-2 basis-1/12' >FECHA DE ENTREGA</li>
             <li className='bg-[#1e4e8c] text-white text-xs border border-black text-center  px-1 py-2 basis-1/12' >PRECIO UNITARIO</li>
             <li className='bg-[#1e4e8c] text-white text-xs border-y border-r border-black text-center  px-1 py-2 basis-1/12 ' >PRECIO TOTAL</li>
@@ -113,7 +113,7 @@ const Remission = () => {
               <input className='w-full' {...register('quantity')} type="number" />
             </label>
             <label className='text-xs border-y border-black text-center  px-1 py-4 flex justify-center items-center basis-1/12' >
-              <input className='w-full' {...register('unit')} type="number" />
+              <input className='w-full' {...register('unit')} type="text" />
             </label>
             <label className='text-xs border border-black  px-1 py-4 flex justify-center items-center basis-7/12' >
               <div className="w-full">

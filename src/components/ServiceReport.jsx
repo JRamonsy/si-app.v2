@@ -7,6 +7,7 @@ import ImgUploaderDiagnosis from "./ImgUploaderDiagnosis";
 import ImgUploaderEvidenceI from "./ImgUploaderEvidenceI";
 import ImgUploaderEvidenceF from "./ImgUploaderEvidenceF";
 import { FormProvider } from "react-hook-form";
+import ImgUploaderObservations from "./ImgUploaderObservations";
 
 const ServiceReport = () => {
 
@@ -130,6 +131,10 @@ const ServiceReport = () => {
         <div className='m-0 p-3'>
           <textarea {...register('observations')} className='resize-none w-full h-[200px]' placeholder="Escriba las observaciones" ></textarea>
         </div>
+        <div className=" p-1 font-bold text-center">
+          PRUEBAS ELECTRICAS
+        </div>
+        <ImgUploaderObservations/>
         <div className="bg-gray-400 p-1  font-bold text-center">
           IV. DIAGNOSTICO Y EVALUACION CON FOTOGRAFIAS
         </div>

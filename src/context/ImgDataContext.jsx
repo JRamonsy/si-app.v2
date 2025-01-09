@@ -15,6 +15,7 @@ export function ImgDataProvider({ children }) {
 
 	const [images, getImages, createImages, deleteImages] = useCrud(BASE_URL)
 	const [imagesDiagnosis, getImagesDiagnosis, createImagesDiagnosis, deleteImagesDiagnosis] = useCrud(BASE_URL)
+  const [imagesObservations, getImagesObservations, createImagesObservations, deleteImagesObservations] = useCrud(BASE_URL)
 	const [imagesEvidenceI, getImagesEvidenceI, createImagesEvidenceI, deleteImagesEvidenceI] = useCrud(BASE_URL)
 	const [imagesEvidenceF, getImagesEvidenceF, createImagesEvidenceF, deleteImagesEvidenceF] = useCrud(BASE_URL)
 
@@ -25,12 +26,14 @@ export function ImgDataProvider({ children }) {
 	useEffect(() => {
 		getImages('/images_datas/'),
     getImagesDiagnosis('/img_datas_diagnosis/'),
+    getImagesObservations('/img_datas_observations/')
     getImagesEvidenceI('/img_datas_evidence_i/'),
     getImagesEvidenceF('/img_datas_evidence_f/')
 	  }, [])
 
   // console.log(images) 
 	// console.log(imagesDiagnosis)
+  // console.log(imagesObservations)
   // console.log(imagesEvidenceI)
   // console.log(imagesEvidenceF)
 
@@ -46,6 +49,12 @@ export function ImgDataProvider({ children }) {
   const [imgFileDiagnosis, setImgFileDiagnosis] = useState([]); // se guardan las imagenes
   const [loadingDiagnosis, setLoadingDiagnosis] = useState(false); // Estado para animación de carga
   const inputImgRefDiagnosis = useRef(null); // Referencia para el input de archivo
+
+  {/* Estados para el manejo de imgObservations*/}
+  const [imgObservations, setImgObservations] = useState(true) // muestra u oculta el div de la img
+  const [imgFileObservations, setImgFileObservations] = useState([]); // se guardan las imagenes
+  const [loadingObservations, setLoadingObservations] = useState(false); // Estado para animación de carga
+  const inputImgRefObservations = useRef(null); // Referencia para el input de archivo
 
   {/* Estados para el manejo de imgEvidenceI*/}
   const [imgEvidenceI, setImgEvidenceI] = useState(true) // muestra u oculta el div de la img
@@ -100,6 +109,29 @@ export function ImgDataProvider({ children }) {
       getInfos('/plate_datas/')
       setLoadingDiagnosis(false); // Detiene la animación de carga
       imgResetDiagnosis()
+    } else {
+      alert('Favor de seleccionar una imagen')
+      console.log("No se subió ninguna imagen para el nuevo registro.");
+    }
+  }
+
+  {/* Funciones guardar imgObservations */}
+  const [btnSaveImgObservations, setBtnSaveImgObservations] = useState(true)
+  const saveImgObservations = async (e) => {
+    e.preventDefault()
+    // si hay una imagen en imgFile
+    if(imgFileObservations){
+      // Se crea
+      setBtnClearImgObservations(false)
+      setLoadingObservations(true); // Inicia la animación de carga
+      const formData = new FormData();
+      formData.append('images_observations', imgFileObservations);
+      formData.append('service_report_id', ServiceReportId);
+      await createImagesObservations('/img_datas_observations/', formData);
+      console.log('imagen creada y asociada al servicio de reporte con id:', ServiceReportId)
+      getInfos('/plate_datas/')
+      setLoadingObservations(false); // Detiene la animación de carga
+      imgResetObservations()
     } else {
       alert('Favor de seleccionar una imagen')
       console.log("No se subió ninguna imagen para el nuevo registro.");
@@ -219,6 +251,21 @@ export function ImgDataProvider({ children }) {
     }
   }
 
+  {/* Funciones eliminar imgObservations */}
+  const deleteImgObservations = async (imageId, e) => {
+    e.preventDefault()
+    try {
+      if (window.confirm("¿Está seguro de eliminar la imagen?")) {
+        // Eliminar imagen de la base de datos
+        await deleteImagesObservations('/img_datas_observations/', imageId);
+        getInfos('/plate_datas/')
+        console.log('imagen eliminada con id', imageId)       
+      }
+    } catch (error) {
+      console.error("Error al eliminar la imagen:", error);
+    }
+  }
+
   {/* Funciones eliminar imgEvidenceI */}
   const deleteImgEvidenceI = async (imageId, e) => {
     e.preventDefault()
@@ -264,6 +311,13 @@ export function ImgDataProvider({ children }) {
     imgResetDiagnosis()
   }
 
+  {/* Funciones limpiar imgObservations */}
+  const [btnClearImgObservations, setBtnClearImgObservations] = useState(true)
+  const clearImgObservations = (e) => {
+    e.preventDefault()
+    imgResetObservations()
+  }
+
   {/* Funciones limpiar imgEvidenceI */}
   const [btnClearImgEvidenceI, setBtnClearImgEvidenceI] = useState(true)
   const clearImgEvidenceI = (e) => {
@@ -291,6 +345,13 @@ export function ImgDataProvider({ children }) {
   const chargeImgDiagnosis = () => { 
     if (imgFileDiagnosis instanceof File) {
         return URL.createObjectURL(imgFileDiagnosis);
+    }
+  };
+
+  // MUESTRA LA IMAGEN SELECCIOANDA INPUT FILE o HANDLEIMAGE DObservations
+  const chargeImgObservations = () => { 
+    if (imgFileObservations instanceof File) {
+        return URL.createObjectURL(imgFileObservations);
     }
   };
 
@@ -331,6 +392,20 @@ export function ImgDataProvider({ children }) {
       setImgDiagnosis(false)
       setBtnClearImgDiagnosis(true)
       setBtnSaveImgDiagnosis(false)
+      console.log(e.target.files[0])
+    } 
+  };
+
+  const [inputLObservations, setInputLObservations] = useState(false)
+  const inputImgObservations = (e) => { //SELECCIONADOR DE LA IMAGEN Diagnosis 
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (file) {
+      setImgFileObservations(file)
+      setInputLObservations(true)
+      setImgObservations(false)
+      setBtnClearImgObservations(true)
+      setBtnSaveImgObservations(false)
       console.log(e.target.files[0])
     } 
   };
@@ -377,6 +452,14 @@ export function ImgDataProvider({ children }) {
     setBtnSaveImgDiagnosis(true)
     setImgDiagnosis(true)
     setInputLDiagnosis(false)
+    inputImgRef.current.value = null; // Limpiar input file
+  }
+
+  const imgResetObservations = () => {
+    setImgFileObservations(null)
+    setBtnSaveImgObservations(true)
+    setImgObservations(true)
+    setInputLObservations(false)
     inputImgRef.current.value = null; // Limpiar input file
   }
 
@@ -444,6 +527,19 @@ export function ImgDataProvider({ children }) {
     deleteImgDiagnosis,
     inputImgRefDiagnosis,
     imagesDiagnosis,
+
+    inputLObservations, 
+    imgObservations,
+    inputImgObservations,
+    btnClearImgObservations,
+    clearImgObservations,
+    loadingObservations,
+    chargeImgObservations,
+    saveImgObservations,
+    btnSaveImgObservations,
+    deleteImgObservations,
+    inputImgRefObservations,
+    imagesObservations,
 
     inputLEvidenceI, 
     imgEvidenceI,

@@ -20,9 +20,9 @@ export function RemissionProvider({ children }) {
   const [remissionEdit, setRemissionEdit] = useState()
   const [selectedRemission, setSelectedRemission] = useState(null)
 
-  useEffect(() => {
-    getRemission('/remission_datas/')
-  }, [])
+  // useEffect(() => {
+  //   getRemission('/remission_datas/')
+  // }, [])
 
   // console.log(remission)
 
@@ -36,12 +36,12 @@ export function RemissionProvider({ children }) {
     const foundData = infos.find(item => item.id === info.id);
     if (foundData) {
       setSelectedInfo(foundData);
-      console.log("Información encontrada del registro:", foundData);
-      console.log('Información encontrada de remision', foundData.Remission)
+      // console.log("Información encontrada del registro:", foundData);
+      // console.log('Información encontrada de remision', foundData.Remission)
       setOpenRemission(false);
       setRemissionEdit(foundData.Remission)
       resetForm()
-      console.log(`Editando remission con ID: ${foundData.Remission.id}`);
+      // console.log(`Editando remission con ID: ${foundData.Remission.id}`);
     } else {
       console.warn('No se encontró el registro con ese ID');
     }

@@ -67,7 +67,7 @@ export function HandleFunctionsProvider({ children }) {
     const foundData = infos.find(item => item.id === info.id);
     if (foundData) {
       setSelectedInfo(foundData);
-      console.log("Información encontrada:", foundData);
+      // console.log("Información encontrada:", foundData);
       setOpenDataSheet(false);
     } else {
       console.warn('No se encontró el registro con ese ID');
@@ -151,14 +151,24 @@ export function HandleFunctionsProvider({ children }) {
     });
   };
 
+  //Service Report PDF
+
   const handleDownloadPdfServiceReport = () => {
-    const section1 = document.querySelector("#service_report_1"); // Primera sección
-    const section2 = document.querySelector("#service_report_2"); // Segunda sección
+    const sections = [
+      "#service_report_1",
+      "#service_report_2",
+      "#service_report_3",
+      "#service_report_4",
+      "#service_report_5",
+      "#service_report_6",
+      "#service_report_7",
+    ]; // IDs de las secciones
   
-    if (!section1 || !section2) {
-      console.error("No se encontraron todas las secciones para exportar a PDF.");
-      return;
-    }
+    const pdf = new jsPDF("p", "mm", "a4"); // Crear una instancia de PDF
+    const margin = 15; // Margen en mm
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const x = margin;
+    const y = margin;
   
     // Función para verificar que las imágenes estén cargadas
     const waitForImagesToLoad = (section) => {
@@ -176,41 +186,44 @@ export function HandleFunctionsProvider({ children }) {
       return Promise.all(promises);
     };
   
-    const pdf = new jsPDF("p", "mm", "a4"); // Crear una instancia de PDF
-    const margin = 15; // Margen en mm
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const x = margin;
-    const y = margin;
+    // Función para procesar cada sección
+    const processSection = (index) => {
+      if (index >= sections.length) {
+        pdf.save("service_report.pdf"); // Guardar el archivo PDF al terminar todas las secciones
+        return;
+      }
   
-    // Procesar la primera sección
-    waitForImagesToLoad(section1)
-      .then(() => html2canvas(section1, { scale: 2, useCORS: true }))
-      .then((canvas1) => {
-        const imgData1 = canvas1.toDataURL("image/png");
-        const imgWidth = pdfWidth - 2 * margin;
-        const imgHeight = (canvas1.height * imgWidth) / canvas1.width;
+      const sectionId = sections[index];
+      const section = document.querySelector(sectionId);
   
-        pdf.addImage(imgData1, "PNG", x, y, imgWidth, imgHeight); // Añadir imagen de la primera sección
+      if (!section) {
+        console.error(`No se encontró la sección con ID ${sectionId}`);
+        processSection(index + 1); // Continuar con la siguiente sección
+        return;
+      }
   
-        // Procesar la segunda sección
-        return waitForImagesToLoad(section2).then(() =>
-          html2canvas(section2, { scale: 2, useCORS: true })
-        );
-      })
-      .then((canvas2) => {
-        const imgData2 = canvas2.toDataURL("image/png");
-        const imgWidth = pdfWidth - 2 * margin;
-        const imgHeight = (canvas2.height * imgWidth) / canvas2.width;
+      waitForImagesToLoad(section)
+        .then(() => html2canvas(section, { scale: 2, useCORS: true }))
+        .then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+          const imgWidth = pdfWidth - 2 * margin;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
   
-        pdf.addPage(); // Añadir una nueva página
-        pdf.addImage(imgData2, "PNG", x, y, imgWidth, imgHeight); // Añadir imagen de la segunda sección
+          if (index > 0) pdf.addPage(); // Añadir nueva página excepto para la primera sección
+          pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
   
-        pdf.save("service_report.pdf"); // Guardar el archivo PDF
-      })
-      .catch((error) => {
-        console.error("Error al cargar las imágenes o generar el PDF:", error);
-      });
+          processSection(index + 1); // Procesar la siguiente sección
+        })
+        .catch((error) => {
+          console.error(`Error al procesar la sección ${sectionId}:`, error);
+          processSection(index + 1); // Continuar con la siguiente sección
+        });
+    };
+  
+    // Iniciar el procesamiento desde la primera sección
+    processSection(0);
   };
+  
   
   
   const handleDownloadPdfRemission  = () => {

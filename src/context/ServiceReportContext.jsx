@@ -23,13 +23,13 @@ export function ServiceReportProvider({ children }) {
   const [descriptionEdit, setDescriptionEdit] = useState();
   const [selectedService, setSelectedService] = useState(null);
 
-  useEffect(() => {
-    getService('/report_datas/');
-  }, []);
+  // useEffect(() => {
+  //   getService('/report_datas/');
+  // }, []);
 
-    useEffect(() => {
-    getDescInitial('/evidence_initial/')
-  }, [])
+  //   useEffect(() => {
+  //   getDescInitial('/evidence_initial/')
+  // }, [])
 
   // console.log(service)
   // console.log(descInitial)
@@ -44,8 +44,8 @@ export function ServiceReportProvider({ children }) {
     }
     const foundData = infos.find(item => item.id === info.id);
     if (foundData) {
-      console.log('información encontrada del id', foundData.id)
-      console.log('información encontrada', foundData)
+      // console.log('información encontrada del id', foundData.id)
+      // console.log('información encontrada', foundData)
       setSelectedInfo(foundData);
       setServiceReport(false);
       setServiceEdit(foundData.serviceReport);
@@ -128,7 +128,7 @@ export function ServiceReportProvider({ children }) {
   
 
   const Submit = async (data) => {
-    console.log(data)
+
     let newServiceReport = {};
   
     // Crear o actualizar el reporte de servicio

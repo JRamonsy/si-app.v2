@@ -58,7 +58,7 @@ const useCrud = (BASE_URL) => {
       }
   
       const res = await axios.put(url, payload, config);
-      console.log(res.data);
+      // console.log(res.data);
       setResponse((prevResponse) =>
         prevResponse.map(info => info.id === id ? res.data : info)
       );

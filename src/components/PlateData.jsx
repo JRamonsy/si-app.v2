@@ -48,7 +48,7 @@ const PlateData = ({ }) => {
 
         // --- > prueba para guardar plateData y CheckList al mismo tiempo
         const newPlateId = newPlate.id
-        console.log(newPlateId)
+        // console.log(newPlateId)
 
         const checkListData = {
           ...data,
@@ -86,7 +86,6 @@ const PlateData = ({ }) => {
             console.log("No se subió ninguna imagen para el nuevo registro.");
           }
           resetForm();
-          console.log(await getInfos('/plate_datas/'));
           //swet alert se creo un nuevo registro
           const Toast = Swal.mixin({
             toast: true,
@@ -153,7 +152,7 @@ const PlateData = ({ }) => {
           setNewService(true)
 
           resetForm();
-          console.log(await getInfos('/plate_datas/'));
+          // console.log(await getInfos('/plate_datas/'));
         } else {
           console.error("Error: infosEdit.id no está definido");
           return;
@@ -205,7 +204,7 @@ const PlateData = ({ }) => {
       setShowHideA(false);
       setHideImage(false)
       // setBtnDeleteImage(false);
-      console.log(e.target.files[0])
+      // console.log(e.target.files[0])
     }
   };
 

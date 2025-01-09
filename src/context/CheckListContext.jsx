@@ -21,9 +21,9 @@ export function CheckListProvider({ children }) {
   const [selectedCheck, setSelectedCheck] = useState(null)
   const [btnDeleteCheck, setBtnDeleteCheck] = useState(true)
 
-  useEffect(() => {
-    getCheck('/checklist_datas/')
-  }, [])
+  // useEffect(() => {
+  //   getCheck('/checklist_datas/')
+  // }, [])
 
   // console.log(checks)
 
@@ -37,12 +37,12 @@ export function CheckListProvider({ children }) {
     const foundData = infos.find(item => item.id === info.id);
     if (foundData) {
       setSelectedInfo(foundData);
-      console.log("Información encontrada del registro:", foundData);
-      console.log('Información encontrada del checklist', foundData.checkList)
+      // console.log("Información encontrada del registro:", foundData);
+      // console.log('Información encontrada del checklist', foundData.checkList)
       setCheckList(false)
-      setChecksEdit(foundData.checkList) // se guarda selectedInfo dentro de la variabole de estado
+      setChecksEdit(foundData.checkList) 
       resetForm()
-      console.log(`Editando checkList con ID: ${foundData.checkList.id}`);
+      // console.log(`Editando checkList con ID: ${foundData.checkList.id}`);
     } else {
       console.warn('No se encontró el registro con ese ID');
     }
@@ -70,7 +70,7 @@ export function CheckListProvider({ children }) {
     if (checksEdit && checksEdit.id) {    
       await updateCheck('/checklist_datas/', checksEdit.id, data);
       handleCloseCheckList();
-      console.log("Checklist actualizado con éxito.");
+      // console.log("Checklist actualizado con éxito.");
       getInfos('/plate_datas/')
       handleRefresh()
       const Toast = Swal.mixin({
@@ -98,7 +98,7 @@ export function CheckListProvider({ children }) {
       handleCloseCheckList();
       resetForm();
       getInfos('/plate_datas/')
-      console.log('Se ha creado un nuevo CheckList')
+      // console.log('Se ha creado un nuevo CheckList')
       const Toast = Swal.mixin({
         toast: true,
         position: "top",

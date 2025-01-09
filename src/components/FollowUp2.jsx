@@ -37,47 +37,68 @@ const FollowUp2 = ({info, trueCount}) => {
 
   const { handleOpenMateriaList, } = useContext(MaterialListContext);
 
-
-const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded",
-      cancelButton: "btn btn-danger bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-    },
-    buttonsStyling: false
-  });
-
-  swalWithBootstrapButtons.fire({
-    title: "¿Estás seguro de eliminar este registro?",
-    text: "¡No podrás recuperar la información guardada!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Sí, ¡elimínalo!",
-    cancelButtonText: "No, cancelar",
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      console.log('Deleting plate info with ID:', info.id);
-      deleteInfos('/plate_datas/', info.id);
-      if (info.image && info.image.length > 0) {
-        console.log('Deleting image with ID:', info.image[0].id);
-        deleteImages('/image_datas/', info.image[0].id);
+  const handleDelete = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded",
+        cancelButton: "btn btn-danger bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      },
+      buttonsStyling: false
+    });
+  
+    swalWithBootstrapButtons.fire({
+      title: "Contraseña requerida",
+      text: "Por favor, introduce tu contraseña para confirmar.",
+      icon: "warning",
+      input: "password", // Campo de entrada para contraseña
+      inputPlaceholder: "Ingresa tu contraseña",
+      inputAttributes: {
+        maxlength: 20,
+        autocapitalize: "off",
+        autocorrect: "off"
+      },
+      showCancelButton: true,
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Cancelar",
+      reverseButtons: true,
+      preConfirm: (password) => {
+        if (!password) {
+          Swal.showValidationMessage("La contraseña no puede estar vacía.");
+          return false;
+        }
+        // Aquí validas la contraseña ingresada
+        const validPassword = "1234"; // Cambia esto por la lógica para validar la contraseña
+        if (password !== validPassword) {
+          Swal.showValidationMessage("Contraseña incorrecta.");
+          return false;
+        }
+        return true;
       }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // console.log("Deleting plate info with ID:", info.id);
+        deleteInfos("/plate_datas/", info.id);
+        if (info.image && info.image.length > 0) {
+          // console.log("Deleting image with ID:", info.image[0].id);
+          deleteImages("/image_datas/", info.image[0].id);
+        }
+  
+        swalWithBootstrapButtons.fire({
+          title: "¡Eliminado!",
+          text: "Tu registro ha sido eliminado.",
+          icon: "success"
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons.fire({
+          title: "Cancelado",
+          text: "Tu registro está a salvo :)",
+          icon: "error"
+        });
+      }
+    });
+  };
+  
 
-      swalWithBootstrapButtons.fire({
-        title: "¡Eliminado!",
-        text: "Tu registro ha sido eliminado.",
-        icon: "success"
-      });
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-      swalWithBootstrapButtons.fire({
-        title: "Cancelado",
-        text: "Tu registro está a salvo :)",
-        icon: "error"
-      });
-    }
-  });
-};
 
   const handleEdit = () => {  // CARGA LOS DATOS DE UN REGISTRO A EL FORMULARIO PARA EDITAR
     setNewService(false)
@@ -89,9 +110,9 @@ const handleDelete = () => { // ELIMINA REGISTRO DE LA BASE DE DATOS
       setHideImage(false)
       // setShowHideX(false);
       // console.log(info.image[0]);
-      console.log(info)
+      // console.log(info)
     } else {
-      console.warn("No hay imágenes disponibles para editar.");
+      // console.warn("No hay imágenes disponibles para editar.");
       setImagesEdit(null);
     }
   };

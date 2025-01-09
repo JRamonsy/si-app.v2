@@ -25,31 +25,34 @@ const MaterialList = () => {
   };
 
   return (
-    <div className={` ${OpenCloseMaterialList && 'scale-0'} fixed inset-0 bg-black/20 backdrop-blur-sm`} >
-      <section className="flex justify-center m-5">
-        <div onClick={handleCloseMateriaList} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-          <h2 >X</h2>
-        </div>
-      </section>
-      <section id="material-list-content"
-        // ID para identificar la sección
-        className="flex flex-col justify-center items-center m-5">
-        <div className="w-1/2 border rounded-[15px] px-5 bg-white">
-          <div className="m-5">
-            <h3 className="text-lg font-bold">Materiales Requeridos para registro: {selectedInfo?.id}</h3>
-          </div>
-          <div className="flex flex-col">
-            <label className="my-2"><b>Remisión:</b> {selectedInfo?.customer}{selectedInfo?.id || 'datos no disponible'}</label>
-            <label className="my-2"><b>Descripción Rapida:</b> {selectedInfo?.note || 'datos no disponible'}</label>
-            <label className="my-2"><b>Lista de Materiales:</b>{renderMaterialsAsList(selectedInfo?.checkList?.requiredMaterials)}</label>
-          </div>
-        </div>
-      </section>
-      <section className="flex justify-center">
+    <div className={` ${OpenCloseMaterialList && 'scale-0'} fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center  `} >
+      
+      <section className="w-2/4 bg-white rounded" >
+      <section className="flex justify-center m-2 ">
         <button onClick={handleDownloadPdf} className="bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500">
           <FaFileDownload />
         </button>
       </section>
+        <section id="material-list-content"
+          className="flex flex-col justify-center items-center  ">
+            <div className="">
+              <h3 className="text-lg font-bold my-4">Materiales Requeridos para registro: {selectedInfo?.id}</h3>
+            </div>
+            <div className="flex flex-col">
+              <label className="my-1"><b>Remisión:</b> {selectedInfo?.customer}{selectedInfo?.id || 'datos no disponible'}</label>
+              <label className="my-1"><b>Descripción Rapida:</b> {selectedInfo?.note || 'datos no disponible'}</label>
+              <label ><b>Lista de Materiales:</b></label>
+              <label className="my-1 max-h-[65vh] overflow-y-auto">{renderMaterialsAsList(selectedInfo?.checkList?.requiredMaterials)}</label>
+            </div>
+        </section>
+      </section>
+
+      <section className="flex items-center justify-center ">
+        <div onClick={handleCloseMateriaList} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/">
+          X
+        </div>
+      </section>
+      
     </div>
   )
 }
