@@ -491,7 +491,7 @@ const DataSheet = () => {
                     selectedInfo.serviceReport.images.map((image, index) => (
                       <div key={index} className="relative ">
                         <img
-                          className="border rounded-2xl w-[150px] h-[150px] object-cover"
+                          className="border rounded-2xl w-60 object-cover"
                           src={image.imageUrl}
                           alt={`Selected ${index}`}
                         />

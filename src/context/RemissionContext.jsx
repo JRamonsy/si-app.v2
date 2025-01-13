@@ -20,9 +20,9 @@ export function RemissionProvider({ children }) {
   const [remissionEdit, setRemissionEdit] = useState()
   const [selectedRemission, setSelectedRemission] = useState(null)
 
-  // useEffect(() => {
-  //   getRemission('/remission_datas/')
-  // }, [])
+  useEffect(() => {
+    getRemission('/remission_datas/')
+  }, [])
 
   // console.log(remission)
 

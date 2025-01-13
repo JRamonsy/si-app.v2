@@ -21,9 +21,9 @@ export function CheckListProvider({ children }) {
   const [selectedCheck, setSelectedCheck] = useState(null)
   const [btnDeleteCheck, setBtnDeleteCheck] = useState(true)
 
-  // useEffect(() => {
-  //   getCheck('/checklist_datas/')
-  // }, [])
+  useEffect(() => {
+    getCheck('/checklist_datas/')
+  }, [])
 
   // console.log(checks)
 
@@ -72,7 +72,7 @@ export function CheckListProvider({ children }) {
       handleCloseCheckList();
       // console.log("Checklist actualizado con éxito.");
       getInfos('/plate_datas/')
-      handleRefresh()
+
       const Toast = Swal.mixin({
         toast: true,
         position: "top",

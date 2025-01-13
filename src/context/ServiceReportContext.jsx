@@ -23,9 +23,9 @@ export function ServiceReportProvider({ children }) {
   const [descriptionEdit, setDescriptionEdit] = useState();
   const [selectedService, setSelectedService] = useState(null);
 
-  // useEffect(() => {
-  //   getService('/report_datas/');
-  // }, []);
+  useEffect(() => {
+    getService('/report_datas/');
+  }, []);
 
   //   useEffect(() => {
   //   getDescInitial('/evidence_initial/')
