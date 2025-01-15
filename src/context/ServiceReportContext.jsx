@@ -44,8 +44,8 @@ export function ServiceReportProvider({ children }) {
     }
     const foundData = infos.find(item => item.id === info.id);
     if (foundData) {
-      // console.log('información encontrada del id', foundData.id)
-      // console.log('información encontrada', foundData)
+      console.log('información encontrada del id', foundData.id)
+      console.log('información encontrada', foundData)
       setSelectedInfo(foundData);
       setServiceReport(false);
       setServiceEdit(foundData.serviceReport);

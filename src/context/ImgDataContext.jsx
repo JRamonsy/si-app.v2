@@ -3,6 +3,7 @@ import { PlateDataContext } from './PlateDataContext';
 import useCrud from "../hooks/useCrud";
 import { ServiceReportContext } from "./ServiceReportContext";
 import { ImgDescriptionContext } from "./ImgDescriptionContext";
+import { HandleFuntionsContext } from "./HandleFunctionsContext";
 
 export const ImgDataContext = createContext(false);
 export function ImgDataProvider({ children }) {
@@ -11,6 +12,7 @@ export function ImgDataProvider({ children }) {
   const { ServiceReportId } = useContext(ServiceReportContext)
   // const {createDescInitial} = useContext(ImgDescriptionContext)
   // console.log(typeof createDescInitial); // Debe imprimir "function"
+  const { setSelectedInfo } = useContext(HandleFuntionsContext)
 
 
 	const [images, getImages, createImages, deleteImages] = useCrud(BASE_URL)
@@ -19,9 +21,7 @@ export function ImgDataProvider({ children }) {
 	const [imagesEvidenceI, getImagesEvidenceI, createImagesEvidenceI, deleteImagesEvidenceI] = useCrud(BASE_URL)
 	const [imagesEvidenceF, getImagesEvidenceF, createImagesEvidenceF, deleteImagesEvidenceF] = useCrud(BASE_URL)
 
-  const [descInitial, getDescInitial, createDescInitial, deleteDescInitial, updateDescInitial] = useCrud(BASE_URL)
-
-
+  
 
 	useEffect(() => {
 		getImages('/images_datas/'),
@@ -138,19 +138,90 @@ export function ImgDataProvider({ children }) {
     }
   }
 
-  {/* Funciones guardar imgEvidenceI */}
-  const [btnSaveImgEvidenceI, setBtnSaveImgEvidenceI] = useState(true)
-  const [descInitisal, setDescInitisal] = useState("")
+  const [descInitial, getDescInitial, createDescInitial, deleteDescInitial, updateDescInitial] = useCrud(BASE_URL)
 
-   // Manejar cambios en el textarea
-   const handleTextareaChange = (e) => {
-    setDescInitisal(e.target.value);
-    
+  useEffect(() => {
+    getDescInitial('/evidence_initial/')
+  }, [])
+
+  // console.log(descInitial)
+
+  const [descriptions, setDescriptions] = useState({});
+  const [descEditInitial, setDescEditInitial] = useState()
+
+  const [descData, setDescData] = useState({
+    imgDescriptionEvidenceI: ""
+  });
+
+  const [btnShowDescriptions, setBtnShowDescriptions] = useState(false)
+  const [btnSaveDescriptions, setBtnSaveDescriptions] = useState(true)
+  const [textarea, setTextarea] = useState(true)
+
+  useEffect(() => {
+    if (descEditInitial) {
+      setDescData(descEditInitial);
+    }
+  }, [descEditInitial]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDescData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleLoadAllDescriptions = (e) => {
+    e.preventDefault();
+    if (!descInitial) {
+      console.warn('No se han cargado los datos aún.');
+      return;
+    }
+    // Crear un objeto que asocie cada ID con su descripción
+    const allDescriptions = descInitial.reduce((acc, item) => {
+      acc[item.id] = item.imgDescriptionEvidenceI;
+      return acc;
+    }, {});
+    // Actualizar el estado con todas las descripciones
+    setDescriptions(allDescriptions);
+    console.log(descInitial)
+    setTextarea(false)
+    setBtnSaveDescriptions(false)
+    setBtnShowDescriptions(true)
+  };
+
+  const handleSaveDescription = async (e) => {
+    e.preventDefault();
+    if (!descriptions || Object.keys(descriptions).length === 0) {
+      console.warn('No hay descripciones para guardar.');
+      return;
+    }
+    try {
+      // Iterar sobre las descripciones y guardar cada una
+      for (const [id, description] of Object.entries(descriptions)) {
+        if (description) {
+          await updateDescInitial('/evidence_initial/', id, {
+            imgDescriptionEvidenceI: description,
+          });
+          console.log(`Descripción con ID ${id} actualizada.`);
+        }
+      }
+      // Limpiar el estado después de guardar
+      setDescriptions({});
+      console.log('Todas las descripciones se han guardado correctamente.');
+      console.log(descriptions)
+      getDescInitial('/evidence_initial/')
+      getInfos('/plate_datas/');
+      setBtnShowDescriptions(false)
+      setTextarea(true)
+      setBtnSaveDescriptions(true)
+    } catch (error) {
+      console.error('Error al guardar las descripciones:', error);
+    }
+  };
+
+  const [btnSaveImgEvidenceI, setBtnSaveImgEvidenceI] = useState(true)
+  const [descInitisal, setDescInitisal] = useState("")
+  
   const saveImgEvidenceI = async (e) => {
     e.preventDefault();
-
     if (imgFileEvidenceI) {
         try {
             setBtnClearImgEvidenceI(false);
@@ -169,7 +240,7 @@ export function ImgDataProvider({ children }) {
 
             // Crear la descripción independientemente del valor de descInitisal
             const newDescription = {
-                imgDescriptionEvidenceI: descInitisal || "Descripción", // Usa un valor predeterminado si descInitisal está vacío
+                imgDescriptionEvidenceI: descInitisal || "", // Usa un valor predeterminado si descInitisal está vacío
                 imgEvidenceIId: imgId,
             };
 
@@ -197,27 +268,136 @@ export function ImgDataProvider({ children }) {
 
 
   {/* Funciones guardar imgEvidenceF */}
-  const [btnSaveImgEvidenceF, setBtnSaveImgEvidenceF] = useState(true)
-  const saveImgEvidenceF = async (e) => {
-    e.preventDefault()
-    // si hay una imagen en imgFile
-    if(imgFileEvidenceF){
-      // Se crea
-      setBtnClearImgEvidenceF(false)
-      setLoadingEvidenceF(true); // Inicia la animación de carga
-      const formData = new FormData();
-      formData.append('images_evidence_f', imgFileEvidenceF);
-      formData.append('service_report_id', ServiceReportId);
-      await createImagesEvidenceF('/img_datas_evidence_f/', formData);
-      console.log('imagen creada y asociada al servicio de reporte con id:', ServiceReportId)
-      getInfos('/plate_datas/')
-      setLoadingEvidenceF(false); // Detiene la animación de carga
-      imgResetEvidenceF()
-    } else {
-      alert('Favor de seleccionar una imagen')
-      console.log("No se subió ninguna imagen para el nuevo registro.");
+
+
+
+  const [descFinal, getDescFinal, createDescFinal, deleteDescFinal, updateDescFinal] = useCrud(BASE_URL)
+
+  useEffect(() => {
+    getDescFinal('/evidence_final/')
+  }, [])
+
+  // console.log(descFinal)
+
+  const [descriptionsF, setDescriptionsF] = useState({});
+  const [descEditFinal, setDescEditFinal] = useState()
+
+  const [descDataF, setDescDataF] = useState({
+    imgDescriptionEvidenceF: ""
+  });
+
+  const [btnShowDescriptionsF, setBtnShowDescriptionsF] = useState(false)
+  const [btnSaveDescriptionsF, setBtnSaveDescriptionsF] = useState(true)
+  const [textareaF, setTextareaF] = useState(true)
+
+  useEffect(() => {
+    if (descEditFinal) {
+      setDescDataF(descEditFinal);
     }
-  }
+  }, [descEditFinal]);
+
+  const handleChangeF = (e) => {
+    const { name, value } = e.target;
+    setDescDataF((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleLoadAllDescriptionsF = (e) => {
+    e.preventDefault();
+    if (!descFinal) {
+      console.warn('No se han cargado los datos aún.');
+      return;
+    }
+    // Crear un objeto que asocie cada ID con su descripción
+    const allDescriptions = descFinal.reduce((acc, item) => {
+      acc[item.id] = item.imgDescriptionEvidenceF;
+      return acc;
+    }, {});
+    // Actualizar el estado con todas las descripciones
+    setDescriptionsF(allDescriptions);
+    console.log(descFinal)
+    setTextareaF(false)
+    setBtnSaveDescriptionsF(false)
+    setBtnShowDescriptionsF(true)
+  };
+
+  const handleSaveDescriptionF = async (e) => {
+    e.preventDefault();
+    if (!descriptionsF || Object.keys(descriptionsF).length === 0) {
+      console.warn('No hay descripciones para guardar.');
+      return;
+    }
+    try {
+      // Iterar sobre las descripciones y guardar cada una
+      for (const [id, description] of Object.entries(descriptionsF)) {
+        if (description) {
+          await updateDescFinal('/evidence_final/', id, {
+            imgDescriptionEvidenceF: description,
+          });
+          console.log(`Descripción con ID ${id} actualizada.`);
+        }
+      }
+      // Limpiar el estado después de guardar
+      setDescriptionsF({});
+      console.log('Todas las descripciones se han guardado correctamente.');
+      console.log(descriptionsF)
+      getDescFinal('/evidence_final/')
+      getInfos('/plate_datas/');
+      setBtnShowDescriptionsF(false)
+      setTextareaF(true)
+      setBtnSaveDescriptionsF(true)
+    } catch (error) {
+      console.error('Error al guardar las descripciones:', error);
+    }
+  };
+
+  const [btnSaveImgEvidenceF, setBtnSaveImgEvidenceF] = useState(true)
+  const [descFinalsal, setDescFinalsal] = useState("")
+
+  const saveImgEvidenceF = async (e) => {
+    e.preventDefault();
+    if (imgFileEvidenceF) {
+        try {
+            setBtnClearImgEvidenceF(false);
+            setLoadingEvidenceF(true); // Inicia la animación de carga
+
+            // Crear un FormData para enviar la imagen
+            const formData = new FormData();
+            formData.append("images_evidence_f", imgFileEvidenceF);
+            formData.append("service_report_id", ServiceReportId);
+
+            // Enviar la solicitud para crear la imagen
+            const response = await createImagesEvidenceF("/img_datas_evidence_f/", formData);
+
+            // Capturar el ID desde la respuesta
+            const imgId = response.id; // Asume que la respuesta contiene 'id'
+
+            // Crear la descripción independientemente del valor de descInitisal
+            const newDescription = {
+                imgDescriptionEvidenceF: descFinalsal || "", // Usa un valor predeterminado si descInitisal está vacío
+                imgEvidenceFId: imgId,
+            };
+
+            // Enviar la solicitud para crear la descripción
+            await createDescFinal("/evidence_final/", newDescription);
+            console.log("Descripción creada con éxito:", newDescription);
+
+            console.log("Imagen creada y asociada al servicio de reporte con id:", ServiceReportId);
+            console.log("ID de la imagen creada:", imgId);
+            getInfos('/plate_datas/')
+
+            // Detener la animación de carga y resetear
+            setLoadingEvidenceF(false);
+            imgResetEvidenceF();
+        } catch (error) {
+            console.error("Error al crear la imagen o la descripción:", error);
+            alert("Hubo un problema al procesar la solicitud. Por favor, inténtalo de nuevo.");
+            setLoadingEvidenceF(false);
+        }
+      } else {
+          alert("Favor de seleccionar una imagen");
+          console.log("No se subió ninguna imagen para el nuevo registro.");
+      }
+  };
 
 //FUNCIONES ELIMINAR IMAGENES
   
@@ -568,8 +748,32 @@ export function ImgDataProvider({ children }) {
     imagesEvidenceF,
 
     
-    handleTextareaChange,
+
     descInitisal,
+
+    handleChange,
+    descData,
+    handleLoadAllDescriptions,
+    handleSaveDescription,
+    descEditInitial,
+    descriptions,
+    setDescriptions,
+    textarea,
+    btnSaveDescriptions,
+    btnShowDescriptions,
+
+    descFinalsal,
+
+    handleChangeF,
+    descDataF,
+    handleLoadAllDescriptionsF,
+    handleSaveDescriptionF,
+    descEditFinal,
+    descriptionsF,
+    setDescriptionsF,
+    textareaF,
+    btnSaveDescriptionsF,
+    btnShowDescriptionsF,
   }
 
   return (

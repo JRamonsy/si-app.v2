@@ -25,7 +25,7 @@ const ImgUploaderObservations = () => {
 			{/* Input para seleccionar la img */}
 			<label className={`${inputLObservations && 'hidden'} cursor-pointer bg-blue-700 text-white hover:bg-blue-600 p-2 rounded-[12px] `}>
 				<span>
-					Adjuntar
+					Adjuntar imagen
 				</span>
 				<input
 					hidden={true}

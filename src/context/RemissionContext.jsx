@@ -151,24 +151,7 @@ export function RemissionProvider({ children }) {
     if (remissionEdit && remissionEdit.id) {  
       await updateRemission('/remission_datas/', remissionEdit.id, data);
       handleRemissionClose();
-      console.log("Remision actualizada con éxito.");
       getInfos('/plate_datas/')
-      handleRefresh()
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Remisión editada"
-      });
     } else {
       if (selectedRemission.Remission === null) {
       const newRemission = {
@@ -180,22 +163,6 @@ export function RemissionProvider({ children }) {
       resetForm();
       getInfos('/plate_datas/')
       console.log('Se ha creado una nueva Remision')
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Nueva remisión creada"
-      });
-
       }
     }
 

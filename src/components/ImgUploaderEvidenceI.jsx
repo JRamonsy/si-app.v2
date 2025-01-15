@@ -17,8 +17,13 @@ const ImgUploaderEvidenceI = () => {
 		imagesEvidenceI,
 		ServiceReportId,
 
-		handleTextareaChange,
-		editDescription
+		handleLoadAllDescriptions,
+		handleSaveDescription,
+		descriptions,
+		setDescriptions,
+		textarea,
+		btnSaveDescriptions,
+		btnShowDescriptions,
 	}
 		= useContext(ImgDataContext)
 
@@ -28,7 +33,7 @@ const ImgUploaderEvidenceI = () => {
 				{/* Input para seleccionar la img */}
 				<label className={`${inputLEvidenceI && 'hidden'} cursor-pointer bg-blue-700 text-white hover:bg-blue-600 p-2 rounded-[12px] `}>
 					<span>
-						Adjuntar
+						Adjuntar imagen
 					</span>
 					<input
 						hidden={true}
@@ -65,12 +70,12 @@ const ImgUploaderEvidenceI = () => {
 					</button>
 				</div>
 			</section>
-
-			<section className='recibo w-full p-1 flex justify-center flex-wrap gap-4'>
+			<section className="recibo w-full p-1 flex justify-center flex-wrap gap-4">
+				{/* Renderizar imágenes y textareas */}
 				{imagesEvidenceI
-					.filter(img => img.service_report_id === ServiceReportId) // Filtra por service_report_id
+					.filter(img => img.service_report_id === ServiceReportId) // Filtrar por service_report_id
 					.map(img => (
-						<div className="relative" key={img.id}>
+						<div className="relative flex flex-col items-center" key={img.id}>
 							<button
 								className="absolute rounded-full w-6 h-6 bg-black/30 text-white/50 hover:bg-white/50 hover:text-black/50"
 								onClick={(e) => deleteImgEvidenceI(img.id, e)}
@@ -82,10 +87,41 @@ const ImgUploaderEvidenceI = () => {
 								src={img.imageUrl}
 								alt={`Image ${img.id}`}
 							/>
+							<textarea
+								className={` ${textarea && 'hidden'} border border-black rounded-[15px] resize-none text-center`}
+								rows={2}
+								name="imgDescriptionEvidenceI"
+								value={descriptions[img.id] || ""} // Mostrar el valor asociado al ID o vacío
+								onChange={(e) =>
+									setDescriptions(prev => ({
+										...prev,
+										[img.id]: e.target.value, // Actualizar solo este ID
+									}))
+								}
+							/>
 						</div>
 					))}
 			</section>
-			
+			<div>
+				{
+					imagesEvidenceI.length > 0 ? (
+						<button
+							className={` ${btnShowDescriptions && 'hidden'} mb-4 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600`}
+							onClick={handleLoadAllDescriptions}
+						>
+							Ver descripciones
+						</button>
+					) : (
+						<p>No hay imágenes</p>
+					)
+				}
+				<button
+					className={` ${btnSaveDescriptions && 'hidden'} mb-4 px-4 py-2 bg-blue-500 text-white rounded-[12px] hover:bg-blue-600`}
+					onClick={handleSaveDescription}
+				>
+					Guardar descripciones
+				</button>
+			</div>
 		</div>
 	)
 }

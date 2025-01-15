@@ -37,9 +37,6 @@ const Remission = () => {
   return (
     <section className={`flex justify-center items-center fixed inset-0 bg-black/20 backdrop-blur-sm transform transition-transform duration-200 ease ${openRemission && 'scale-0'}`} >
       <section className='m-5' >
-        <div onClick={handleGuia} className='cursor-pointer  text-slate-300 hover:text-white' >
-          <h2>{`${guiabtn === false ? '- guia' : '+ guia'}`}</h2>
-        </div>
       </section>
       <form onSubmit={handleSubmit(Submit)} className=' w-10/12 bg-white border  m-0 p-2 rounded-lg h-[90vh] overflow-y-auto '>
         <div className="bg-[#1e4e8c] text-white p-1 text-center  text-3xl">
@@ -91,9 +88,9 @@ const Remission = () => {
           </div>
         </div>
         <div className="bg-[#1e4e8c] p-4 text-center text-white ">
-          <div className={`${guia && 'scale-0'}`}>
-            <label htmlFor="">GUIA:
-              <input className='w-3/6 px-2 bg-[#1e4e8c]' type="text" placeholder='Escriba la guia de rastreo si aplica' />
+          <div className=''>
+            <label htmlFor="">GUÍA:
+              <input {...register('guia')} className='w-3/6 px-2 bg-[#1e4e8c]' type="text" placeholder='Escriba la guia de rastreo si aplica' />
             </label>
           </div>
         </div>

@@ -67,7 +67,7 @@ const FollowUp2 = ({info, trueCount}) => {
           return false;
         }
         // Aquí validas la contraseña ingresada
-        const validPassword = "1234"; // Cambia esto por la lógica para validar la contraseña
+        const validPassword = "delete-753"; // Cambia esto por la lógica para validar la contraseña
         if (password !== validPassword) {
           Swal.showValidationMessage("Contraseña incorrecta.");
           return false;

@@ -613,7 +613,7 @@ const DataSheet = () => {
                     selectedInfo.serviceReport.images_observations.map((image, index) => (
                       <div key={index} className="relative ">
                         <img
-                          className="border rounded-2xl w-[150px] h-[150px] object-cover"
+                          className="border rounded-2xl w-60 object-cover"
                           src={image.imageUrl}
                           alt={`Selected ${index}`}
                         />
@@ -943,9 +943,9 @@ const DataSheet = () => {
                           src={image.imageUrl}
                           alt={`Selected ${index}`}
                         />
-                        {/* <div className="flex justify-center" >
-                          <label className="" >{image.evidenceInitial?.imgDescri || ""}</label>
-                        </div> */}
+                        <div className="flex justify-center" >
+                          <label className="break-words whitespace-normal overflow-hidden text-center max-w-[150px]" >{image.evidenceInitial?.imgDescri || ""}</label>
+                        </div>
                       </div>
                     ))
                   ) : (
@@ -1160,9 +1160,9 @@ const DataSheet = () => {
                           src={image.imageUrl}
                           alt={`Selected ${index}`}
                         />
-                        {/* <div className="flex justify-center" >
-                          <label className="" >{image.evidenceFinal?.imgDescriptio || ""}</label>
-                        </div> */}
+                        <div className="flex justify-center" >
+                          <label className="break-words whitespace-normal overflow-hidden text-center max-w-[150px]" >{image.evidenceFinal?.imgDescriptio || ""}</label>
+                        </div>
                       </div>
                     ))
                   ) : (
@@ -1232,12 +1232,14 @@ const DataSheet = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-[#1e4e8c] p-4 text-center text-white ">
-                <div >
-                  {/* <label htmlFor="">GUIA:
-                  <input className='w-3/6 px-2 bg-[#1e4e8c]' type="text" placeholder='Escriba la guia de rastreo si aplica' />
-                </label> */}
-                </div>
+              <div className="bg-[#1e4e8c] p-4 text-center text-white">
+                {selectedInfo?.Remission?.guia && (
+                  <div>
+                    <label>
+                      GUÍA: {selectedInfo.Remission.guia}
+                    </label>
+                  </div>
+                )}
               </div>
               <section className='w-full mt-5'>
                 <ul className='w*full flex flex-row ' >
