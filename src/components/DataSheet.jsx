@@ -1204,8 +1204,7 @@ const DataSheet = () => {
                   <div className='bg-gray-200 m-2 text-center border border-black' >
                     <div className="pb-[4px] leading-[1.5]">
                       <label>EMPRESA: </label>
-                      <label>{selectedInfo?.customer || 'datos no disponible'} <br />
-                      ID: {selectedInfo?.id || 'datos no disponible'}</label>
+                      <label>{selectedInfo?.customer || 'datos no disponible'} </label>
                     </div>
                     <div className='flex'>
                       <div className=' text-center w-2/4 border-t border-r border-black flex flex-col '>
