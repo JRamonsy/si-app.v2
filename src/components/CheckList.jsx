@@ -31,7 +31,7 @@ const CheckList = ({}) => {
               className="w-52 h-auto"
               src="\logo suministros industriales.png"
               />
-            <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI{selectedInfo?.id || 'datos no disponible'}</h1>
+            <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI {selectedInfo?.id || 'datos no disponible'}</h1>
           </div>
           <div className="flex justify-between mb-2.5">
             <label className="basis-4/12  bg-white">FECHA DE RECIBO:</label>

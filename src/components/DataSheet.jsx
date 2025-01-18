@@ -74,7 +74,7 @@ const DataSheet = () => {
       ${openDataSheet && 'scale-0'} transform transition-transform duration-200 ease`}>
       <div className='bg-white p-10 w-10/12 h-[90vh] overflow-y-auto'>
         <div className='text-center'>
-          <h1 className="text-xl font-bold" >REPORTE GENERAL CON ID: {selectedInfo?.id || 'datos no disponible'} </h1>
+          <h1 className="text-xl font-bold" >REPORTE GENERAL CON ID:{selectedInfo?.id || 'datos no disponible'} </h1>
         </div>
         <section className='my-5'>
           <section id="equipment-information" className={` flex justify-center items-center  transform transition-transform duration-200 ease`}>
@@ -188,9 +188,10 @@ const DataSheet = () => {
                       className="w-52 h-auto"
                       src="\logo suministros industriales.png"
                     />
-                    <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI</h1>
+                    <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI </h1>
                     <p className="text-sm">
-                      HOJA No. 1 / 2
+                      HOJA No. 1 / 2 <br />
+                      ID: {selectedInfo?.id || 'datos no disponible'}
                     </p>
                   </div>
                   <div className="flex justify-between mb-2.5">
@@ -328,7 +329,8 @@ const DataSheet = () => {
                     />
                     <h1 className='text-lg font-bold bg-white'>CHECK LIST DE SERVICIOS SI</h1>
                     <p className="text-sm">
-                      HOJA No. 2 / 2
+                      HOJA No. 2 / 2 <br />
+                      ID: {selectedInfo?.id || 'datos no disponible'}
                     </p>
                   </div>
                   <div className="flex justify-between mb-2.5">
@@ -396,7 +398,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 1 / 7
+                    HOJA No. 1 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -518,7 +521,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 2 / 7
+                    HOJA No. 2 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -637,7 +641,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 3 / 7
+                    HOJA No. 3 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -750,7 +755,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 4 / 7
+                    HOJA No. 4 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -850,7 +856,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 5 / 7
+                    HOJA No. 5 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -965,7 +972,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 6 / 7
+                    HOJA No. 6 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -1067,7 +1075,8 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-                    HOJA No. 7 / 7
+                    HOJA No. 7 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
                 <div className="text-sm text-right mb-2">
@@ -1195,7 +1204,8 @@ const DataSheet = () => {
                   <div className='bg-gray-200 m-2 text-center border border-black' >
                     <div className="pb-[4px] leading-[1.5]">
                       <label>EMPRESA: </label>
-                      <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                      <label>{selectedInfo?.customer || 'datos no disponible'} <br />
+                      ID: {selectedInfo?.id || 'datos no disponible'}</label>
                     </div>
                     <div className='flex'>
                       <div className=' text-center w-2/4 border-t border-r border-black flex flex-col '>
