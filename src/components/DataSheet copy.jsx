@@ -389,7 +389,7 @@ const DataSheet = () => {
         <section>
           <section className={` my-5 backdrop-blur-sm flex flex-col justify-center items-center transform transition-transform duration-200 ease`} >
             <form className='bg-white m-0 w-9/12 pt-2 rounded-lg '>
-              <section id="service_repor_t1" >
+              <section id="service_report_1" >
                 <div className="flex justify-between items-center">
                   <div className="bg-black">
                     <img className='w-16' src="\logo-2.png" alt="" />
@@ -398,7 +398,7 @@ const DataSheet = () => {
                     CENTRO DE SERVICIO
                   </h1>
                   <div className="text-sm">
-  
+                    HOJA No. 1 / 7 <br />
                     ID: {selectedInfo?.id || 'datos no disponible'}
                   </div>
                 </div>
@@ -504,6 +504,105 @@ const DataSheet = () => {
                     <p>No hay imágenes seleccionadas</p>
                   )}
                 </div>
+              </section>
+
+
+              <section>
+
+              </section>
+
+              <section id="service_report_2">
+
+                <div className="flex justify-between items-center">
+                  <div className="bg-black">
+                    <img className='w-16' src="\logo-2.png" alt="" />
+                  </div>
+                  <h1 className='text-2xl m-0 font-bold'>
+                    CENTRO DE SERVICIO
+                  </h1>
+                  <div className="text-sm">
+                    HOJA No. 2 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
+                  </div>
+                </div>
+                <div className="text-sm text-right mb-2">
+                  <label>FECHA: <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label> </label>
+                </div>
+                <table className='w-full border-collapse mb-5'>
+                  <tbody>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CLIENTE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                        {/* <input className='w-full' type="text" /> */}
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        No. SERIE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.serie || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        USUARIO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.user || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        FRAME:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.frame || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        SPEC:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.spec || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        VOLTS:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.volts || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CATALAGO N°:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        EQUIPO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.equipment || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        POTENCIA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
+                        MARCA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.brand || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div className="bg-gray-400 p-1 font-bold text-center">
                   III. OBSERVACIONES
                 </div>
@@ -528,6 +627,102 @@ const DataSheet = () => {
                     <p>No aplica</p>
                   )}
                 </div>
+              </section>
+
+
+
+              <section id="service_report_3" >
+
+                <div className="flex justify-between items-center">
+                  <div className="bg-black">
+                    <img className='w-16' src="\logo-2.png" alt="" />
+                  </div>
+                  <h1 className='text-2xl m-0 font-bold'>
+                    CENTRO DE SERVICIO
+                  </h1>
+                  <div className="text-sm">
+                    HOJA No. 3 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
+                  </div>
+                </div>
+                <div className="text-sm text-right mb-2">
+                  <label>FECHA: <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label> </label>
+                </div>
+                <table className='w-full border-collapse mb-5'>
+                  <tbody>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CLIENTE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                        {/* <input className='w-full' type="text" /> */}
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        No. SERIE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.serie || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        USUARIO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.user || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        FRAME:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.frame || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        SPEC:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.spec || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        VOLTS:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.volts || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CATALAGO N°:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        EQUIPO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.equipment || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        POTENCIA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
+                        MARCA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.brand || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div className="bg-gray-400 p-1  font-bold text-center">
                   IV. DIAGNOSTICO Y EVALUACION CON FOTOGRAFIAS
                 </div>
@@ -546,12 +741,203 @@ const DataSheet = () => {
                     <p>No hay imágenes seleccionadas</p>
                   )}
                 </div>
+              </section>
+
+
+
+              <section id="service_report_4">
+
+                <div className="flex justify-between items-center">
+                  <div className="bg-black">
+                    <img className='w-16' src="\logo-2.png" alt="" />
+                  </div>
+                  <h1 className='text-2xl m-0 font-bold'>
+                    CENTRO DE SERVICIO
+                  </h1>
+                  <div className="text-sm">
+                    HOJA No. 4 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
+                  </div>
+                </div>
+                <div className="text-sm text-right mb-2">
+                  <label>FECHA: <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label> </label>
+                </div>
+                <table className='w-full border-collapse mb-5'>
+                  <tbody>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CLIENTE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                        {/* <input className='w-full' type="text" /> */}
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        No. SERIE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.serie || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        USUARIO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.user || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        FRAME:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.frame || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        SPEC:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.spec || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        VOLTS:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.volts || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CATALAGO N°:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        EQUIPO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.equipment || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        POTENCIA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
+                        MARCA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.brand || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div className="bg-gray-400 p-1  font-bold text-center" >
                   V. REQUERIMIENTO PARA REPARACION
                 </div>
                 <div className='m-0 p-3'>
                   <label>{renderRequestForRepair(selectedInfo?.serviceReport?.requirementForRepair)}</label>
                 </div>
+
+              </section>
+
+              <section id="service_report_5">
+
+                <div className="flex justify-between items-center">
+                  <div className="bg-black">
+                    <img className='w-16' src="\logo-2.png" alt="" />
+                  </div>
+                  <h1 className='text-2xl m-0 font-bold'>
+                    CENTRO DE SERVICIO
+                  </h1>
+                  <div className="text-sm">
+                    HOJA No. 5 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
+                  </div>
+                </div>
+                <div className="text-sm text-right mb-2">
+                  <label>FECHA: <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label> </label>
+                </div>
+                <table className='w-full border-collapse mb-5'>
+                  <tbody>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CLIENTE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                        {/* <input className='w-full' type="text" /> */}
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        No. SERIE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.serie || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        USUARIO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.user || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        FRAME:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.frame || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        SPEC:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.spec || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        VOLTS:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.volts || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CATALAGO N°:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        EQUIPO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.equipment || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        POTENCIA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
+                        MARCA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.brand || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div className="bg-gray-400 p-1 mt-5 font-bold text-center">
                   VI. EVIDENCIA FOTOGRÁFICA
                 </div>
@@ -565,7 +951,7 @@ const DataSheet = () => {
                           alt={`Selected ${index}`}
                         />
                         <div className="flex justify-center" >
-                          <label className="break-words whitespace-normal overflow-hidden text-center max-w-[150px] pb-2" >{image.evidenceInitial?.imgDescri || ""}</label>
+                          <label className="break-words whitespace-normal overflow-hidden text-center max-w-[150px]" >{image.evidenceInitial?.imgDescri || ""}</label>
                         </div>
                       </div>
                     ))
@@ -573,6 +959,101 @@ const DataSheet = () => {
                     <p>No hay imágenes seleccionadas</p>
                   )}
                 </div>
+
+              </section>
+
+              <section id="service_report_6" >
+
+                <div className="flex justify-between items-center">
+                  <div className="bg-black">
+                    <img className='w-16' src="\logo-2.png" alt="" />
+                  </div>
+                  <h1 className='text-2xl m-0 font-bold'>
+                    CENTRO DE SERVICIO
+                  </h1>
+                  <div className="text-sm">
+                    HOJA No. 6 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
+                  </div>
+                </div>
+                <div className="text-sm text-right mb-2">
+                  <label>FECHA: <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label> </label>
+                </div>
+                <table className='w-full border-collapse mb-5'>
+                  <tbody>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CLIENTE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                        {/* <input className='w-full' type="text" /> */}
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        No. SERIE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.serie || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        USUARIO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.user || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        FRAME:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.frame || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        SPEC:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.spec || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        VOLTS:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.volts || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CATALAGO N°:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        EQUIPO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.equipment || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        POTENCIA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
+                        MARCA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.brand || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div className="bg-gray-400 p-1  font-bold text-center" >
                   VII. SERVICIO REALIZADO
                 </div>
@@ -581,6 +1062,101 @@ const DataSheet = () => {
                     {renderServiceList(selectedInfo?.serviceReport?.serviceCompleted)}
                   </div>
                 </div>
+
+              </section>
+
+              <section id="service_report_7" >
+
+                <div className="flex justify-between items-center">
+                  <div className="bg-black">
+                    <img className='w-16' src="\logo-2.png" alt="" />
+                  </div>
+                  <h1 className='text-2xl m-0 font-bold'>
+                    CENTRO DE SERVICIO
+                  </h1>
+                  <div className="text-sm">
+                    HOJA No. 7 / 7 <br />
+                    ID: {selectedInfo?.id || 'datos no disponible'}
+                  </div>
+                </div>
+                <div className="text-sm text-right mb-2">
+                  <label>FECHA: <label>{selectedInfo?.receivedDate || 'datos no disponible'}</label> </label>
+                </div>
+                <table className='w-full border-collapse mb-5'>
+                  <tbody>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CLIENTE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.customer || 'datos no disponible'}</label>
+                        {/* <input className='w-full' type="text" /> */}
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        No. SERIE:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.serie || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        USUARIO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.user || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        FRAME:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.frame || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        SPEC:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.spec || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        VOLTS:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.volts || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        CATALAGO N°:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.cat || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        EQUIPO:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.equipment || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='border border-solid border-black p-1.5 text-sm text-left p-1 w-3/12'>
+                        POTENCIA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.hp || 'datos no disponible'}</label>
+                      </td>
+                      <th className='border border-solid border-black p-1 text-sm text-left p-1 w-3/12'>
+                        MARCA:
+                      </th>
+                      <td className='border border-solid border-black p-1 text-sm text-center'>
+                        <label>{selectedInfo?.brand || 'datos no disponible'}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 <div className="bg-gray-400 p-1 mt-5 font-bold text-center">
                   VIII. EVIDENCIA FOTOGRÁFICA DE SERVICIO REALIZADO
                 </div>
@@ -594,7 +1170,7 @@ const DataSheet = () => {
                           alt={`Selected ${index}`}
                         />
                         <div className="flex justify-center" >
-                          <label className="break-words whitespace-normal overflow-hidden text-center max-w-[150px] pb-2" >{image.evidenceFinal?.imgDescriptio || ""}</label>
+                          <label className="break-words whitespace-normal overflow-hidden text-center max-w-[150px]" >{image.evidenceFinal?.imgDescriptio || ""}</label>
                         </div>
                       </div>
                     ))
@@ -602,6 +1178,7 @@ const DataSheet = () => {
                     <p>No hay imágenes seleccionadas</p>
                   )}
                 </div>
+
               </section>
 
             </form>

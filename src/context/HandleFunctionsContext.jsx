@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState,  useRef } from "react";
 import {useContext } from "react";
 import { PlateDataContext } from './PlateDataContext';
 import Swal from 'sweetalert2'
@@ -153,76 +153,130 @@ export function HandleFunctionsProvider({ children }) {
 
   //Service Report PDF
 
-  const handleDownloadPdfServiceReport = () => {
-    const sections = [
-      "#service_report_1",
-      "#service_report_2",
-      "#service_report_3",
-      "#service_report_4",
-      "#service_report_5",
-      "#service_report_6",
-      "#service_report_7",
-    ]; // IDs de las secciones
+  const sectionRef = useRef();
+
   
-    const pdf = new jsPDF("p", "mm", "a4"); // Crear una instancia de PDF
-    const margin = 15; // Margen en mm
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const x = margin;
-    const y = margin;
+
+  const handleDownloadPdfServiceReport = async () => {
+    try {
+      // Mostrar indicador de carga
+      const loadingElement = document.createElement("div");
+      loadingElement.innerText = "Generando PDF...";
+      loadingElement.style.position = "fixed";
+      loadingElement.style.top = "50%";
+      loadingElement.style.left = "50%";
+      loadingElement.style.transform = "translate(-50%, -50%)";
+      loadingElement.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+      loadingElement.style.color = "white";
+      loadingElement.style.padding = "10px 20px";
+      loadingElement.style.borderRadius = "5px";
+      loadingElement.style.zIndex = "1000";
+      document.body.appendChild(loadingElement);
   
-    // Función para verificar que las imágenes estén cargadas
-    const waitForImagesToLoad = (section) => {
-      const images = section.querySelectorAll("img");
-      const promises = Array.from(images).map((img) => {
-        return new Promise((resolve, reject) => {
-          if (img.complete) {
-            resolve();
-          } else {
-            img.onload = resolve;
-            img.onerror = reject;
-          }
-        });
+      const sectionElement = document.getElementById("service_repor_t1");
+      if (!sectionElement) {
+        throw new Error("No se encontró el elemento con id 'service_repor_t1'");
+      }
+  
+      // Capturar el contenido como imagen
+      const canvas = await html2canvas(sectionElement, {
+        scale: 2, // Mejora la calidad
+        useCORS: true,
       });
-      return Promise.all(promises);
-    };
   
-    // Función para procesar cada sección
-    const processSection = (index) => {
-      if (index >= sections.length) {
-        pdf.save("service_report.pdf"); // Guardar el archivo PDF al terminar todas las secciones
-        return;
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+  
+      // Dimensiones de la página
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10;
+  
+      // Reducimos la altura un poco
+      const scaleFactor = 1;
+      const imgWidth = pageWidth - 2 * margin;
+      const imgHeight = Math.ceil(((canvas.height * imgWidth) / canvas.width) * scaleFactor);
+  
+      let yPosition = margin;
+      let heightLeft = imgHeight;
+      let currentHeight = 0;
+      let totalPages = 0;
+      let pageNumbers = [];
+  
+      // Determinar cuántas páginas tendrá el PDF
+      while (heightLeft > 0) {
+        totalPages++;
+        heightLeft -= Math.min(heightLeft, pageHeight - 2 * margin);
       }
   
-      const sectionId = sections[index];
-      const section = document.querySelector(sectionId);
+      // Reset para iteración real
+      heightLeft = imgHeight;
+      currentHeight = 0;
+      let currentPage = 1;
   
-      if (!section) {
-        console.error(`No se encontró la sección con ID ${sectionId}`);
-        processSection(index + 1); // Continuar con la siguiente sección
-        return;
+      while (heightLeft > 0) {
+        const fragmentHeight = Math.min(heightLeft, pageHeight - 2 * margin);
+  
+        const croppedCanvas = document.createElement("canvas");
+        const croppedCtx = croppedCanvas.getContext("2d");
+  
+        croppedCanvas.width = canvas.width;
+        croppedCanvas.height = Math.ceil((fragmentHeight * canvas.width) / imgWidth);
+  
+        croppedCtx.drawImage(
+          canvas,
+          0,
+          currentHeight,
+          canvas.width,
+          croppedCanvas.height,
+          0,
+          0,
+          croppedCanvas.width,
+          croppedCanvas.height
+        );
+  
+        const croppedImgData = croppedCanvas.toDataURL("image/png");
+  
+        pdf.addImage(
+          croppedImgData,
+          "PNG",
+          margin,
+          yPosition,
+          imgWidth,
+          fragmentHeight
+        );
+  
+        // Agregar número de página
+        pageNumbers.push({ page: currentPage, total: totalPages });
+  
+        heightLeft -= fragmentHeight;
+        currentHeight += croppedCanvas.height;
+        currentPage++;
+  
+        if (heightLeft > 0) {
+          pdf.addPage();
+          yPosition = margin;
+        }
       }
   
-      waitForImagesToLoad(section)
-        .then(() => html2canvas(section, { scale: 2, useCORS: true }))
-        .then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
-          const imgWidth = pdfWidth - 2 * margin;
-          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      // Agregar numeración de páginas
+      pageNumbers.forEach((page, index) => {
+        pdf.setPage(index + 1);
+        pdf.setFontSize(10);
+        pdf.text(`${page.page} / ${page.total}`, pageWidth - margin - 10, pageHeight - margin);
+      });
   
-          if (index > 0) pdf.addPage(); // Añadir nueva página excepto para la primera sección
-          pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
+      pdf.save("service_report.pdf");
   
-          processSection(index + 1); // Procesar la siguiente sección
-        })
-        .catch((error) => {
-          console.error(`Error al procesar la sección ${sectionId}:`, error);
-          processSection(index + 1); // Continuar con la siguiente sección
-        });
-    };
-  
-    // Iniciar el procesamiento desde la primera sección
-    processSection(0);
+      // Eliminar indicador de carga
+      document.body.removeChild(loadingElement);
+    } catch (error) {
+      console.error("Error al exportar a PDF:", error.message);
+    }
   };
+  
+  
+  
   
   
   
