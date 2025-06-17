@@ -242,9 +242,14 @@ const PlateData = ({ }) => {
 
   return (
     <div>
-      <section className={`fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center 
+      <section className={`fixed inset-0 bg-black/20 backdrop-blur-sm flex flex-col justify-center items-center 
     ${newService && 'scale-0'} transform transition-transform duration-200 ease`}>
-        <form onSubmit={handleSubmit(Submit)} className='w-full max-w-2xl p-5 rounded-lg bg-white h-[90vh] overflow-y-auto '>
+      <section className="m-1" >
+          <div onClick={handlenewServiceClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
+            <h2 >X</h2>
+          </div>
+        </section>
+        <form onSubmit={handleSubmit(Submit)} className='w-full max-w-2xl p-1 md:p-5 xl:p-5 rounded-lg bg-white h-[90vh] overflow-y-auto '>
           <div className="flex justify-between items-center mb-5 bg-white ">
             <img
               alt="Logo de Suministros Industriales con texto y un símbolo gráfico"
@@ -330,11 +335,7 @@ const PlateData = ({ }) => {
           </section>
           <button className="w-full my-5 px-4 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600">GUARDAR</button>
         </form>
-        <section className="m-5" >
-          <div onClick={handlenewServiceClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-            <h2 >X</h2>
-          </div>
-        </section>
+        
       </section>
     </div>
   )

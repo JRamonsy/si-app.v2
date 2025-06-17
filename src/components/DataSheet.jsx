@@ -70,9 +70,14 @@ const DataSheet = () => {
   };
 
   return (
-    <div className={` fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center 
+    <div className={` fixed inset-0 bg-black/20 backdrop-blur-sm flex flex-col justify-center items-center 
       ${openDataSheet && 'scale-0'} transform transition-transform duration-200 ease`}>
-      <div className='bg-white p-10 w-10/12 h-[90vh] overflow-y-auto'>
+      <section className='m-1'>
+        <div onClick={handleDataSheetClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
+          <h2 >X</h2>
+        </div>
+      </section>  
+      <div className='bg-white py-4 px-1 md:p-10  w-full md:w-11/12 xl:w-7/12 h-[90vh] overflow-y-auto'>
         <div className='text-center'>
           <h1 className="text-xl font-bold" >REPORTE GENERAL CON ID:{selectedInfo?.id || 'datos no disponible'} </h1>
         </div>
@@ -388,7 +393,7 @@ const DataSheet = () => {
         <hr className="h-1 bg-gradient-to-r from-blue-500 via-green-500 to-purple-500 my-6 border-0 rounded-full" />
         <section>
           <section className={` my-5 backdrop-blur-sm flex flex-col justify-center items-center transform transition-transform duration-200 ease`} >
-            <form className='bg-white m-0 w-9/12 pt-2 rounded-lg '>
+            <form className='bg-white m-0 md:w-11/12 xl:w-10/12 pt-2 rounded-lg '>
               <section id="service_repor_t1" >
                 <div className="flex justify-between items-center">
                   <div className="bg-black">
@@ -803,11 +808,7 @@ const DataSheet = () => {
         </section>
         <hr className="h-1 bg-gradient-to-r from-blue-500 via-green-500 to-purple-500 my-6 border-0 rounded-full" />
       </div>
-      <section className='m-5'>
-        <div onClick={handleDataSheetClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-          <h2 >X</h2>
-        </div>
-      </section>
+      
     </div>
   )
 }

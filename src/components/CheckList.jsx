@@ -20,11 +20,14 @@ const CheckList = ({}) => {
   const handleChangeGuide = (e) => {};
 
   return (
-    <section className={`fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center 
+    <section className={`fixed inset-0 bg-black/20 backdrop-blur-sm flex flex-col justify-center items-center 
     ${checkList && 'scale-0'} transform transition-transform duration-200 ease`}>
-      <section className="m-5" >
+      <section className="m-1" >
+        <div onClick={handleCloseCheckList} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
+          <h2 >X</h2>
+        </div>        
       </section>
-      <form onSubmit={handleSubmit(Submit)} className='w-full max-w-2xl h-[90vh] overflow-y-auto p-5 rounded-lg bg-white '>
+      <form onSubmit={handleSubmit(Submit)} className='w-full max-w-2xl h-[90vh] overflow-y-auto p-1 md:p-5 xl:p-5 rounded-lg bg-white '>
           <div className="flex justify-between items-center mb-5 bg-white ">
             <img
               alt="Logo de Suministros Industriales con texto y un símbolo gráfico"
@@ -280,13 +283,10 @@ const CheckList = ({}) => {
             <p className='bg-white'>Materiales requeridos:</p>
             <textarea {...register('requiredMaterials')} className="bg-white border border-black px-2" rows="4" style={{ width: '100%', resize: 'none' }}></textarea>
           </div>
-          <button className="w-full m-5 px-4 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600">GUARDAR</button>
+          <section>
+            <button className="w-full py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600">GUARDAR</button>
+          </section>
         </form>
-        <section className="m-5" >
-        <div onClick={handleCloseCheckList} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-          <h2 >X</h2>
-        </div>        
-      </section>
     </section>
   )
 }

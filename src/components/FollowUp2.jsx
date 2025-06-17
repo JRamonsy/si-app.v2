@@ -3,7 +3,7 @@ import DataSheet from './DataSheet'
 import Remission from './Remission'
 import MaterialList from "./MaterialList";
 import ServiceReport from './ServiceReport'
-import {useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { PlateDataContext } from "../context/PlateDataContext";
 import { HandleFuntionsContext } from "../context/HandleFunctionsContext";
 import { CheckListContext } from "../context/CheckListContext";
@@ -23,11 +23,11 @@ import Box from '@mui/material/Box';
 
 
 
-const FollowUp2 = ({info, trueCount}) => {
+const FollowUp2 = ({ info, trueCount }) => {
 
   const { deleteInfos, deleteImages, setInfosEdit, setImagesEdit } = useContext(PlateDataContext);
 
-  const {setShowHideA, setHideImage, setBtnDeleteImage, setNewService, handleDataSheet } = useContext(HandleFuntionsContext);  
+  const { setShowHideA, setHideImage, setBtnDeleteImage, setNewService, handleDataSheet } = useContext(HandleFuntionsContext);
 
   const { newCheckList, handleCheckListOpen, actBtnDelete } = useContext(CheckListContext)
 
@@ -45,7 +45,7 @@ const FollowUp2 = ({info, trueCount}) => {
       },
       buttonsStyling: false
     });
-  
+
     swalWithBootstrapButtons.fire({
       title: "Contraseña requerida",
       text: "Por favor, introduce tu contraseña para confirmar.",
@@ -82,7 +82,7 @@ const FollowUp2 = ({info, trueCount}) => {
           // console.log("Deleting image with ID:", info.image[0].id);
           deleteImages("/image_datas/", info.image[0].id);
         }
-  
+
         swalWithBootstrapButtons.fire({
           title: "¡Eliminado!",
           text: "Tu registro ha sido eliminado.",
@@ -97,7 +97,7 @@ const FollowUp2 = ({info, trueCount}) => {
       }
     });
   };
-  
+
 
 
   const handleEdit = () => {  // CARGA LOS DATOS DE UN REGISTRO A EL FORMULARIO PARA EDITAR
@@ -120,14 +120,14 @@ const FollowUp2 = ({info, trueCount}) => {
   const [btnNewCheck, setBtnNewCheck] = useState(true)
   const [btnEditCheck, setBtnEditCheck] = useState(true)
   useEffect(() => {
-      if (info.checkList) {
-        setBtnNewCheck(true);
-        setBtnEditCheck(false);
-      } else {
-        setBtnNewCheck(false);
-        setBtnEditCheck(true);
-      }
-  }, [info.checkList, actBtnDelete]); 
+    if (info.checkList) {
+      setBtnNewCheck(true);
+      setBtnEditCheck(false);
+    } else {
+      setBtnNewCheck(false);
+      setBtnEditCheck(true);
+    }
+  }, [info.checkList, actBtnDelete]);
 
   const [btnNewReport, setBtnNewReport] = useState(true)
   const [btnEditReport, setBtnEditReport] = useState(true)
@@ -139,7 +139,7 @@ const FollowUp2 = ({info, trueCount}) => {
       setBtnNewReport(false);
       setBtnEditReport(true);
     }
-  }, [info.serviceReport]); 
+  }, [info.serviceReport]);
 
   const [btnNewRemission, setBtnNewRemission] = useState(true)
   const [btnEditRemission, setBtnEditRemission] = useState(true)
@@ -154,20 +154,20 @@ const FollowUp2 = ({info, trueCount}) => {
   }, [info.Remission]);
 
   // Circulo de progreso
-  const totalInputs = 11; 
+  const totalInputs = 11;
   const progressValue = (trueCount / totalInputs) * 100;
- 
+
   function CircularProgressWithLabel({ value, color, size, thickness, customColor, textStyle }) {
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-        <CircularProgress 
-          variant="determinate" 
+        <CircularProgress
+          variant="determinate"
           value={value}
           color={color}
           size={size}
           thickness={thickness}
           sx={{ color: customColor ? customColor : '' }}
-          />
+        />
         <Box
           sx={{
             top: 0,
@@ -181,7 +181,7 @@ const FollowUp2 = ({info, trueCount}) => {
             ...textStyle
           }}
         >
-          <span>{`${Math.round(value)}%`}</span> 
+          <span>{`${Math.round(value)}%`}</span>
         </Box>
       </Box>
     );
@@ -192,51 +192,51 @@ const FollowUp2 = ({info, trueCount}) => {
       <table className='w-full border-collapse' >
         <tbody>
           <tr className='flex'  >
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center'>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm  flex justify-center items-center basis-2/12 md:basis-1/12 xl:basis-1/12'>
               <span className='font-bold text-xl ' >
                 {`${info.id}`}
               </span></td>
-            <td className='font-sans flex justify-center items-center border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
-            <CircularProgressWithLabel value={progressValue} customColor="#9ad247" size={70} thickness={8}
-              textStyle={{ fontSize: '.9rem', color: '#fff', fontWeight: 'bold', fontFamily: 'Arial' }} />         
+            <td className='font-sans flex justify-center items-center border border-black text-slate-300 text-center p-1 text-sm basis-3/12 md:basis-2/12 xl:basis-1/12' >
+              <CircularProgressWithLabel value={progressValue} customColor="#9ad247" size={70} thickness={8}
+                textStyle={{ fontSize: '.9rem', color: '#fff', fontWeight: 'bold', fontFamily: 'Arial' }} />
             </td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.customer}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.user}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.receivedDate}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.customer}${info.id}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.finalDate || ""}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-2/12 flex justify-center items-center' ><span>{`${info.note}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.quote}`}</span></td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
-            <section className='flex flex-col items-center'>
-    
-              <section className='w-full flex justify-between items-center'>
-                <h3 className='text-left' >CheckList:</h3>
-                <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleCheckListOpen(info)} title='Editar Check List' ><FaEdit /></button>
-              </section>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm flex justify-center items-center basis-2/12 md:basis-2/12 xl:basis-1/12' ><span className='break-words text-wrap wrap text-center'>{`${info.customer}`}</span></td>
+            <td className='hidden md:flex xl:flex font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 md:basis-2/12 xl:basis-1/12 flex justify-center items-center' ><span className='break-words text-wrap wrap text-center'>{`${info.user}`}</span></td>
+            <td className='hidden md:flex xl:flex font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 md:basis-2/12 xl:basis-1/12 flex justify-center items-center' ><span>{`${info.receivedDate}`}</span></td>
+            <td className='hidden xl:flex font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.customer}${info.id}`}</span></td>
+            <td className='hidden xl:flex font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.finalDate || ""}`}</span></td>
+            <td className='hidden xl:flex font-sans border border-black text-slate-300 text-center p-1 text-sm basis-2/12 flex justify-center items-center' ><span className='break-words text-wrap wrap text-center' >{`${info.note}`}</span></td>
+            <td className='hidden xl:flex font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 flex justify-center items-center' ><span>{`${info.quote}`}</span></td>
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-4/12 md:basis-2/12 xl:basis-1/12' >
+              <section className='flex flex-col items-center'>
 
-              <section className='w-full flex justify-between items-center'>
-                <h3 className='text-left' >Reporte de servicio:</h3>
-                <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleServiceReport(info)} title='Editar Reporte de Servicio' ><FaEdit /></button>
-              </section>
+                <section className='w-full flex justify-between items-center'>
+                  <h3 className='text-left' >CheckList:</h3>
+                  <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleCheckListOpen(info)} title='Editar Check List' ><FaEdit /></button>
+                </section>
 
-              <section className='w-full flex justify-between items-center'>
-                <h3 className='text-left' >Remisión:</h3>
-                <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleRemission(info)} title='Editar Remisión' ><FaEdit /></button>
-              </section>
+                <section className='w-full flex justify-between items-center'>
+                  <h3 className='text-left' >Reporte de servicio:</h3>
+                  <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleServiceReport(info)} title='Editar Reporte de Servicio' ><FaEdit /></button>
+                </section>
 
-              <section className='w-full flex justify-between items-center'>
-                <h3 className='text-left'>Lista de materiales:</h3>
-                <button  className='bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500' onClick={() => handleOpenMateriaList(info) } title='Eliminar registro' ><HiOutlineArrowsExpand/></button>
+                <section className='w-full flex justify-between items-center'>
+                  <h3 className='text-left' >Remisión:</h3>
+                  <button className={`bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500`} onClick={() => handleRemission(info)} title='Editar Remisión' ><FaEdit /></button>
+                </section>
+
+                <section className='w-full flex justify-between items-center'>
+                  <h3 className='text-left'>Lista de materiales:</h3>
+                  <button className='bg-sky-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-sky-500' onClick={() => handleOpenMateriaList(info)} title='Eliminar registro' ><HiOutlineArrowsExpand /></button>
+                </section>
               </section>
-            </section>
             </td>
-            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12' >
-             <section className='flex flex-col justify-center items-center' >
+            <td className='font-sans border border-black text-slate-300 text-center p-1 text-sm basis-1/12 md:basis-1/12 xl:basis-1/12' >
+              <section className='flex flex-col justify-center items-center' >
                 <button className='bg-yellow-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-yellow-500' onClick={() => handleDataSheet(info)}
-                title="Abrir Reporte General"><HiOutlineArrowsExpand/></button>
-                <button  className='bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500' onClick={handleEdit} title='Editar información del equipo' ><FaEdit /></button>
-                <button  className='bg-red-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-red-500' onClick={handleDelete} title='Eliminar registro' ><MdDeleteForever /></button>
+                  title="Abrir Reporte General"><HiOutlineArrowsExpand /></button>
+                <button className='bg-lime-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-lime-500' onClick={handleEdit} title='Editar información del equipo' ><FaEdit /></button>
+                <button className='bg-red-600 text-white p-1 border-0 rounded-[8px] cursor-pointer m-0.5 hover:bg-red-500' onClick={handleDelete} title='Eliminar registro' ><MdDeleteForever /></button>
               </section>
             </td>
           </tr>
@@ -246,7 +246,7 @@ const FollowUp2 = ({info, trueCount}) => {
       <CheckList />
       <Remission />
       <ServiceReport />
-      <MaterialList info={info}/>
+      <MaterialList info={info} />
 
     </section>
   )

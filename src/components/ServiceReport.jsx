@@ -20,12 +20,17 @@ const ServiceReport = () => {
 
 
   return (
-    <section className={` fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center 
+    <section className={` fixed inset-0 bg-black/20 backdrop-blur-sm flex flex-col justify-center items-center 
       ${serviceReport && 'scale-0'} transform transition-transform duration-200 ease`} >
-      <section className='m-5'>
+      <section className=''>
+      </section>
+      <section className='m-1'>
+        <div onClick={handleServiceReportClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
+          <h2 >X</h2>
+        </div>
       </section>
       <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(Submit)} className='bg-white m-0 w-7/12 pt-2 rounded-lg h-[90vh] overflow-y-auto '>
+      <form onSubmit={handleSubmit(Submit)} className='bg-white md:w-10/12 xl:w-7/12 p-1 md:p-5 xl:p-5 rounded-lg h-[90vh] overflow-y-auto '>
         <div className="flex justify-between items-center">
           <div className="bg-black">
             <img className='w-16' src="\logo-2.png" alt="" />
@@ -162,11 +167,6 @@ const ServiceReport = () => {
         <button type="submit" className="w-full  px-4 py-2 rounded-full text-white bg-blue-500 hover:bg-blue-600">GUARDAR</button>
       </form>
       </FormProvider>
-      <section className='m-5'>
-        <div onClick={handleServiceReportClose} className="cursor-pointer bg-black/30 rounded-full w-10 h-10 flex justify-center items-center hover:bg-white/50 text-white/50  hover:text-black/30">
-          <h2 >X</h2>
-        </div>
-      </section>
     </section>
   )
 }
